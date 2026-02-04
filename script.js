@@ -536,6 +536,44 @@ class ProjectFilters {
         });
     }
 }
+// ============================================
+// CERTIFICATE FILTERS
+// ============================================
+class CertificateFilters {
+    constructor() {
+        this.filterBtns = Utils.$$('.certificate-filters .filter-btn');
+        this.certificateCards = Utils.$$('.certificate-card');
+        this.init();
+    }
+
+    init() {
+        if (this.filterBtns.length === 0) return;
+
+        this.filterBtns.forEach(btn => {
+            Utils.on(btn, 'click', () => this.filterCertificates(btn));
+        });
+    }
+
+    filterCertificates(activeBtn) {
+        const filter = activeBtn.getAttribute('data-filter');
+
+        // Update active button
+        this.filterBtns.forEach(btn => btn.classList.remove('active'));
+        activeBtn.classList.add('active');
+
+        // Filter certificates with animation
+        this.certificateCards.forEach(card => {
+            const category = card.getAttribute('data-category');
+            
+            if (filter === 'all' || category === filter) {
+                card.classList.remove('hidden');
+                card.style.animation = 'fadeInUp 0.5s ease forwards';
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+    }
+}
 
 // ============================================
 // CONTACT FORM
@@ -1322,6 +1360,7 @@ class App {
             new CounterAnimation();
             new ScrollAnimations();
             new ProjectFilters();
+            new CertificateFilters();
             new ContactForm();
             new BackToTop();
             new SmoothScroll();
