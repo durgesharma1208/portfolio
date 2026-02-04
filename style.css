@@ -646,24 +646,9 @@ body:hover .cursor-follower {
     transform: rotate(-45deg) translate(5px, -6px);
 }
 
-/* Mobile Overlay */
+/* Mobile Overlay - Hidden/Disabled */
 .mobile-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    z-index: var(--z-fixed);
-    opacity: 0;
-    visibility: hidden;
-    transition: var(--transition-base);
-}
-
-.mobile-overlay.active {
-    opacity: 1;
-    visibility: visible;
+    display: none !important;
 }
 
 /* Responsive Nav */
