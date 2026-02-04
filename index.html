@@ -1,942 +1,4087 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Full Stack Developer</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!DOCTYPE html>
+      <html lang="en">
+     <head>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <title>Routify - A Premier Train, Bus & Flight Booking Experience</title>
 
-    <style>
-        /* =========================================
-           1. VARIABLES & RESET
-           ========================================= */
-        :root {
-            --bg-color: #0f172a; /* Slate 900 */
-            --bg-secondary: #1e293b; /* Slate 800 */
-            --text-primary: #f8fafc; /* Slate 50 */
-            --text-secondary: #94a3b8; /* Slate 400 */
-            --accent: #06b6d4; /* Cyan 500 */
-            --accent-glow: rgba(6, 182, 212, 0.5);
-            --nav-bg: rgba(15, 23, 42, 0.85);
-            --transition: all 0.3s ease;
-        }
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+     <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+     />
+     <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      />
+      <style>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
-        }
+      /* ======================= Global Styles & Variables ======================= */
+      :root {
+        --primary-gradient: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+        --accent-color: #f59e0b;
+        --background-color: #f7f8fc;
+        --card-bg-color: #ffffff;
+        --text-primary: #1f2937;
+        --text-secondary: #6b7280;
+        --border-color: #e5e7eb;
+        --font-heading: "Poppins", sans-serif;
+        --font-body: "Poppins", sans-serif;
+        --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
+          0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
 
-        ul {
-            list-style: none;
-        }
+      /* --- Base & Reset --- */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: var(--font-body);
+        color: var(--text-primary);
+        background: linear-gradient(-45deg, #e0f7fa, #b2ebf2, #80deea, #4dd0e1);
+        background-size: 400% 400%;
+        animation: gradientAnimation 8s ease infinite;
+        overflow-x: hidden;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        vertical-align: middle;
+      }
 
-        img {
-            max-width: 100%;
-            display: block;
-        }
+      /* --- General Elements --- */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: var(--font-heading);
+        font-weight: 700;
+      }
+      p {
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
 
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--bg-secondary);
-            border-radius: 5px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
-        }
+      .section-header h2 {
+        text-align: center;
+        color: #4338ca;
+        font-size: 40px;
+      }
 
-        /* Utility Classes */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+      .section-header p {
+        font-size: 18px;
+        max-width: 600px;
+        margin: 0 auto;
+        color: #374151;
+      }
 
-        .section-title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
+      /* ======================= Header ======================= */
+      .main-header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        padding: 0px 0;
+      }
 
-        .section-subtitle {
-            text-align: center;
-            color: var(--accent);
-            font-size: 1.1rem;
-            margin-bottom: 4rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
+      .main-header.scrolled {
+        position: fixed;
+        background-color:  white;
+        box-shadow: var(--shadow-md);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+      }
 
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            border-radius: 5px;
-            font-weight: 500;
-            cursor: pointer;
-            border: 2px solid var(--accent);
-            transition: var(--transition);
-        }
+      .header-content {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+      }
 
-        .btn-primary {
-            background: var(--accent);
-            color: var(--bg-color);
-        }
+      .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+      .logo-container svg {
+        height: 55px;
+      }
+      .logo-text {
+        font-size: 38px;
+        font-weight: 800;
+        font-family: var(--font-heading);
+        background:linear-gradient(135deg, #F97316 0%, #D946EF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .main-header.scrolled .logo-text {
+        background: linear-gradient(135deg, #F97316 0%, #D946EF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+      }
 
-        .btn-primary:hover {
-            background: transparent;
-            color: var(--accent);
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
+      .main-nav {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-grow: 1; /* <-- ADD THIS LINE */
+    justify-content: center; /* <-- ADD THIS LINE to re-center the nav links */
+}
+      .nav-item {
+        text-decoration: none;
+        color: white;
+        font-weight: 700;
+        font-size: 18px;
+        padding: 10px 20px;
+        border-radius: 22px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        border: 1.5px solid rgba(255, 255, 255, 1);
+      }
+      .main-header.scrolled .nav-item {
+        color: #000000; /* Text ko black karein */
+  border-color: #000000; /* Border ko bhi black karein */
+      }
 
-        .btn-outline {
-            background: transparent;
-            color: var(--accent);
-        }
+      .nav-item:hover,
+      .nav-item.active {
+        color: #fff !important;
+      }
+      .nav-item[data-page="flights"]:hover,
+      .nav-item[data-page="flights"].active {
+        background-color: #3b82f6;
+      }
+      .nav-item[data-page="buses"]:hover,
+      .nav-item[data-page="buses"].active {
+        background-color: #3b82f6;
+      }
+      .nav-item[data-page="trains"]:hover,
+      .nav-item[data-page="trains"].active {
+        background-color: #3b82f6;
+      }
+     
 
-        .btn-outline:hover {
-            background: var(--accent);
-            color: var(--bg-color);
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
+             .header-actions {
+         display: flex;
+         align-items: center;
+         gap: 15px;
+         margin-left: auto; /* <-- ADD THIS LINE */
+       }
+       /* --- My Bookings Button Style --- */
+#my-bookings-btn {
+  background-color: green; /* Red color */
+  border-color: green;
+  border-radius: 8px; /* Isse ye rectangle banega */
+}
 
-        /* =========================================
-           2. ANIMATIONS
-           ========================================= */
-        /* Fade In Up Animation Class */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
+#my-bookings-btn:hover {
+  background-color: darkgreen; /* Thoda dark red hover par */
+  border-color: darkgreen;
+}
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+/* Scroll karne par bhi color theek rakhein */
+.main-header.scrolled #my-bookings-btn {
+  color: white !important; /* Text hamesha white rahega */
+  border-color: transparent;
+}
+      .lang-selector,
+      .login-btn {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border: 1.5px solid rgba(255, 255, 255, 0.5);
+        border-radius: 22px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
 
-        /* Staggered delays for children */
-        .delay-100 { transition-delay: 0.1s; }
-        .delay-200 { transition-delay: 0.2s; }
-        .delay-300 { transition-delay: 0.3s; }
+      .login-btn {
+    background: #3B82F6; /* Solid Blue Background */
+    border: none;
+    gap: 10px; /* Adds a bit more space */
+    position: relative; /* Needed for the arrow */
+    padding-right: 20px; /* Make space for the arrow */
+}
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
+.login-logo-icon {
+    height: 24px; /* Control the size of your logo */
+    width: 24px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 2px;
+}
 
-        /* =========================================
-           3. NAVBAR
-           ========================================= */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background: var(--nav-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding: 1rem 0;
-            transition: var(--transition);
-        }
+      .main-header.scrolled .lang-selector,
+      .main-header.scrolled .login-btn {
+        color: var(--text-primary);
+        border-color: var(--border-color);
+      }
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      .main-header.scrolled .login-btn {
+        background: #3B82F6;
+        color: white;
+      }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
+      .lang-selector:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: white;
+      }
+      .login-btn:hover {
+        opacity: 0.9;
+      }
 
-        .logo span {
-            color: var(--accent);
-        }
+      .main-header.scrolled .lang-selector:hover,
+      .main-header.scrolled .login-btn:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        border-color: var(--text-primary);
+      }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
+      /* ======================= Page Content Sections ======================= */
+      .page-content {
+        display: none;
+      }
+      .page-content.active {
+        display: block;
+      }
 
-        .nav-links a {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            position: relative;
-        }
+      /* ======================= Hero Section ======================= */
+      .hero {
+        position: relative;
+        padding: 180px 0 80px 0;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        min-height: 600px;
+        background-color: var(--background-color);
+      }
+      .hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        transition: transform 1s ease-out, filter 0.8s ease-out;
+        transform: scale(1.05);
+      }
+      .hero:hover .hero-bg {
+        transform: scale(1);
+      }
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.7),
+          rgba(0, 0, 0, 0.2)
+        );
+        z-index: 1;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: #fff;
+      }
+      .hero h1 {
+        font-size: 52px;
+        margin-bottom: 15px;
+        color: #fff;
+        font-weight: 800;
+        background: -webkit-linear-gradient(135deg, #fff, #d1d1d1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hero .subtitle {
+        font-size: 20px;
+        max-width: 600px;
+        margin: 0 auto 40px;
+        opacity: 1;
+        color: #f8f8fd;
+      }
 
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--accent);
-        }
+      /* Booking Box Styling */
+      .booking-box {
+        background: rgba(255, 255, 255, 1); /* Semi-transparent white */
+        -webkit-backdrop-filter: blur(10px); /* Blur effect for Safari */
+        backdrop-filter: blur(10px); /* Standard blur effect */
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Optional: subtle border */
+        padding: 15px;
+        border-radius: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+        box-shadow: var(--shadow-lg);
+        text-align: left;
+        transition: transform 0.3s ease;
+      }
+      .booking-box:hover {
+        transform: translateY(-5px);
+      }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--accent);
-            transition: width 0.3s;
-        }
+      .booking-nav {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .booking-nav-item {
+        padding: 10px 5px;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--text-secondary);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border-bottom: 4px solid transparent;
+      }
+      .booking-nav-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f3f4f6;
+        transition: all 0.3s ease;
+      }
+      .booking-nav-icon svg {
+        width: 24px;
+        height: 24px;
+        fill: var(--text-secondary);
+      }
+      .booking-nav-item.active {
+        color: #6366f1;
+        border-bottom-color: #6366f1;
+      }
+      .booking-nav-item.active .booking-nav-icon {
+        background-color: #e0e7ff;
+      }
+      .booking-nav-item.active .booking-nav-icon svg {
+        fill: #6366f1;
+      }
 
-        .nav-links a:hover::after, .nav-links a.active::after {
-            width: 100%;
-        }
+      .booking-inputs {
+        display: flex;
+        align-items: flex-end;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      .input-group {
+        flex: 1;
+      }
+      .input-group label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 8px;
+      }
+      .input-group input,
+      .input-group .class-display {
+        width: 100%;
+        background: #f3f4f6;
+        border: 1px solid var(--border-color);
+        outline: none;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-primary);
+        padding: 12px;
+        border-radius: 8px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+      .input-group input:focus {
+        border-color: #6366f1;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+      }
+      .class-selector {
+        cursor: pointer;
+        background: #f3f4f6;
+        border-radius: 8px;
+        padding: 8px 12px; /* Adjusted padding for the new layout */
+        display: flex; /* Changed to flex for better control */
+        flex-direction: column; /* Stacks the text vertically */
+        align-items: flex-start; /* Aligns text to the left */
+        line-height: 1.2; /* Adjusts line spacing */
+      }
 
-        .menu-btn {
-            display: none;
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            cursor: pointer;
-        }
+      .class-selector .class-value {
+        font-size: 18px; /* Slightly smaller for balance */
+        font-weight: 800; /* Bold */
+        color: #1f2937; /* Black color */
+      }
 
-        /* =========================================
-           4. HERO SECTION
-           ========================================= */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-top: 60px; /* Offset for navbar */
-            position: relative;
-            background: radial-gradient(circle at top right, rgba(6, 182, 212, 0.1), transparent 40%);
-        }
+      .class-selector .class-label {
+        font-size: 14px; /* Slightly larger for readability */
+        color: black; /* Standard secondary text color */
+      }
+      .swap-btn {
+        background: var(--card-bg-color);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--border-color);
+        cursor: pointer;
+        color: #6366f1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 10px;
+      }
+      .swap-btn:hover {
+        transform: rotate(180deg);
+        box-shadow: var(--shadow-md);
+      }
+      /* Styling for the new Class dropdown */
+      .input-group {
+        position: relative; /* This is crucial for positioning the dropdown */
+      }
 
-        .hero-content {
-            text-align: center;
-            max-width: 800px;
-        }
+      .class-dropdown {
+        display: none; /* Hidden by default */
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        z-index: 10;
+        max-height: 200px;
+        overflow-y: auto;
+        margin-top: 5px;
+      }
 
-        .hero-greeting {
-            color: var(--accent);
-            font-size: 1.2rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
-            display: block;
-        }
+      .class-dropdown.visible {
+        display: block; /* Class to show the dropdown */
+      }
 
-        .hero-title {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+      .class-dropdown a {
+        display: block;
+        padding: 10px 15px;
+        color: var(--text-primary);
+        text-decoration: none;
+        transition: background-color 0.2s;
+      }
 
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-        }
+      .class-dropdown a:hover {
+        background-color: #f3f4f6;
+      }
 
-        .hero-subtitle span {
-            color: var(--accent);
-            font-weight: 600;
-        }
+      .booking-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+      }
+      .search-btn,
+      .plan-trip-btn {
+        color: white;
+        border: none;
+        width: 100%;
+        padding: 18px 30px;
+        font-size: 18px;
+        font-weight: 700;
+        font-family: var(--font-heading);
+        border-radius: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-md);
+        flex: 1;
+      }
+      .search-btn {
+        background: var(--primary-gradient);
+      }
+      .plan-trip-btn {
+        background: linear-gradient(to right, #f59e0b, #f97316);
+      }
 
-        .social-hero {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-        }
+      .search-btn:hover,
+      .plan-trip-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+      }
 
-        .social-hero a {
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-        }
+      /* Fare Type Selector */
+      .fare-type-selector {
+        display: flex;
+        gap: 10px;
+        padding-top: 15px;
+        border-top: 1px solid var(--border-color);
+      }
+      .fare-type-selector label {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.3s ease;
+        background-color: #f9fafb;
+      }
+      .fare-type-selector input[type="radio"] {
+        display: none;
+      }
+      .fare-type-selector input[type="radio"]:checked + label {
+        background-color: #eef2ff;
+        border-color: #6366f1;
+        color: #6366f1;
+        box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+      }
+      .fare-type-selector label span {
+        display: block;
+      }
+      .fare-type-selector .fare-title {
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .fare-type-selector .fare-desc {
+        font-size: 12px;
+        color: green;
+      }
 
-        .social-hero a:hover {
-            color: var(--accent);
-            transform: translateY(-3px);
-        }
+      #train-student + label,
+      #flight-student + label,
+      #train-senior + label,
+      #flight-senior + label,
+      #train-forces + label,
+      #flight-forces + label,
+      #train-regular + label,
+      #flight-regular + label {
+        color: var(--text-primary);
+      }
 
-        .scroll-down {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: float 2s infinite;
-            color: var(--text-secondary);
-            font-size: 1.5rem;
+      /* ======================= Premium Entry Animations ======================= */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
         }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-up {
+        opacity: 0;
+        transform: translateY(40px);
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+      .animate-fade-in-up.delay-1 {
+        animation-delay: 0.2s;
+      }
+      .animate-fade-in-up.delay-2 {
+        animation-delay: 0.4s;
+      }
 
-        /* =========================================
-           5. ABOUT SECTION
-           ========================================= */
-        .section {
-            padding: 6rem 0;
-        }
+      /* ======================= Section Styling ======================= */
+      section {
+        padding: 80px 0;
+      }
 
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 4rem;
-            align-items: center;
-        }
+      /* Why Book Section */
+      .why-book {
+        background-color: var(--background-color);
+      }
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+      }
+      .feature-card {
+        text-align: center;
+        background: var(--card-bg-color);
+        padding: 40px 30px;
+        border-radius: 16px;
+        transition: all 0.3s ease;
+        transform: translateY(0);
+      }
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+      }
+      .icon-wrapper {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 25px;
+        background: var(--primary-gradient);
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 28px;
+        box-shadow: var(--shadow-md);
+        transition: transform 0.3s ease;
+      }
+      .feature-card:hover .icon-wrapper {
+        transform: scale(1.1) rotate(15deg);
+      }
+      .feature-card h3 {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+      .feature-card:hover .icon-wrapper {
+        background: linear-gradient(
+          135deg,
+          green
+        ); /* This is the new blue gradient */
+      }
 
-        .about-img-wrapper {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
+      /* Destinations Section */
+      .destinations {
+        background-color: white;
+      }
+      .destinations-grid {
+        display: grid;
+        /* This makes the grid responsive, fitting as many columns as possible */
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+        /*max-height: 450px; /* Set a fixed height for the scrollable area */
+        /*overflow-y: auto; /* Enable vertical scrolling when content is taller */
+        padding: 15px; /* Add some internal padding */
+        border: 1px solid var(--border-color); /* Optional: Add a subtle border */
+        border-radius: 16px; /* Match the card radius */
+      }
+      .destination-card {
+  height: 200px;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  display: flex;
+  align-items: flex-end;     /* <-- CHANGE THIS to align to the bottom */
+  justify-content: flex-start;  /* <-- CHANGE THIS to align to the left */
+  text-align: left;           /* <-- CHANGE THIS to align the text itself */
+  padding: 10px;              /* <-- Adjusted padding for better corner fit */
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s ease;
+}
+      .destination-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.8),
+          transparent 50%
+        );
+      }
+      .destination-card:hover {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-lg);
+      }
+      .destination-card h3 {
+  position: relative;
+  z-index: 2;
+  font-size: 24px;
+  color: #fff;
+  /* transform: translateY(10px); */ /* <-- DELETE THIS LINE */
+  /* opacity: 0; */                   /* <-- DELETE THIS LINE */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* <-- ADD THIS for better readability */
+  transition: all 0.4s ease;
+}
+   
+ 
 
-        /* Placeholder image style */
-        .about-img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            background-color: var(--bg-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            font-size: 3rem;
-        }
+      /* Airline Partners Section */
+      .partners-section {
+        background-color: var(--card-bg-color);
+      }
+      .partners-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 30px;
+        align-items: center;
+      }
+      .partner-logo {
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+      .partner-logo:hover {
+        transform: scale(1.1);
+      }
+      .partner-logo img {
+        max-height: 60px;
+        transition: filter 0.3s ease;
+      }
+      .partner-logo:hover img {
+        filter: grayscale(0%);
+      }
 
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .about-text p {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-
-        .stats {
-            display: flex;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .stat-item h4 {
-            font-size: 2rem;
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        .stat-item p {
-            font-size: 0.9rem;
-            margin-bottom: 0;
-        }
-
-        /* =========================================
-           6. SKILLS SECTION
-           ========================================= */
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .skill-card {
-            background: var(--bg-secondary);
-            padding: 2rem 1rem;
-            border-radius: 10px;
-            transition: var(--transition);
-            border: 1px solid transparent;
-        }
-
-        .skill-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(6, 182, 212, 0.1);
-        }
-
-        .skill-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-
-        .skill-name {
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-
-        /* =========================================
-           7. PROJECTS SECTION
-           ========================================= */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .project-card {
-            background: var(--bg-secondary);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: var(--transition);
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 30px rgba(0,0,0,0.3);
-            border-color: rgba(6, 182, 212, 0.3);
-        }
-
-        .project-img {
-            height: 200px;
-            background: #2d3748;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-        }
+      /* FAQ Section */
+      .faq {
+        background-color: var(--background-color);
+        padding-top: 10px;
+      }
+      .faq-list {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .faq-item {
+        margin-bottom: 15px;
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+      }
+      .faq-question {
+        cursor: pointer;
+        padding: 0px 20px;
+        font-size: 18px;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.3s;
         
-        .project-content {
-            padding: 1.5rem;
+      }
+      /* Add Q. before each question */
+.faq-question::before {
+    content: "Q.";
+    font-weight: 700;
+    margin-right: 10px;
+    color: var(--text-primary);
+}
+
+/* Add A: before each answer's paragraph */
+.faq-answer p::before {
+    content: "A:";
+    font-weight: 700;
+    margin-right: 8px;
+    color: var(--text-primary);
+}
+      .faq-question:hover {
+        background-color: #f9fafb;
+      }
+      .faq-question::after {
+        content: "\f078";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        transition: transform 0.3s ease;
+      }
+      .faq-item.active .faq-question {
+        background-color: #f9fafb;
+      }
+      .faq-item.active .faq-question::after {
+        transform: rotate(180deg);
+      }
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out;
+      }
+      .faq-answer p {
+        margin: 0;
+        padding: 0 25px 20px;
+      }
+      /* ======================= Footer ======================= */
+      footer {
+        background-color: var(--text-primary);
+        color: #e5e7eb;
+        padding: 60px 0 0;
+      }
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        gap: 40px;
+        padding-bottom: 40px;
+      }
+      .footer-about {
+        max-width: 300px;
+      }
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        text-decoration: none;
+        font-family: var(--font-heading);
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      .footer-logo svg {
+        height: 40px;
+        fill: white;
+      }
+      .footer-links {
+        display: flex;
+        gap: 60px;
+      }
+      .footer-col h4 {
+        font-size: 18px;
+        color: #fff;
+        margin-bottom: 15px;
+      }
+      .footer-col ul {
+        list-style: none;
+        padding: 0;
+      }
+      .footer-col li {
+        margin-bottom: 10px;
+      }
+      .footer-col a {
+        text-decoration: none;
+        color: #9ca3af;
+        transition: color 0.3s;
+      }
+      .footer-col a:hover {
+        color: #fff;
+      }
+      .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        border-top: 1px solid #4b5563;
+      }
+      .social-icons {
+        display: flex;
+        gap: 15px;
+      }
+      .social-icons a {
+        color: #9ca3af;
+        font-size: 18px;
+        transition: color 0.3s, transform 0.3s;
+      }
+      .social-icons a:hover {
+        color: #fff;
+        transform: scale(1.2);
+      }
+
+      /* ======================= Modals (Login & Itinerary) ======================= */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .modal-overlay.visible {
+        opacity: 1;
+        display: flex;
+      }
+
+      .modal-container {
+        width: 800px;
+        max-width: 90%;
+        background-color: var(--card-bg-color);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        transform: scale(0.95);
+        transition: transform 0.3s ease;
+        display: flex;
+      }
+      .modal-overlay.visible .modal-container {
+        transform: scale(1);
+      }
+      .close-modal-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--text-secondary);
+        cursor: pointer;
+        z-index: 10;
+      }
+
+      .login-promo {
+        width: 45%;
+        position: relative;
+        overflow: hidden;
+      }
+      .login-promo-slider {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #1f2937;
+      }
+      
+      .login-promo-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+        padding: 40px;
+        background-size: cover;
+        background-position: center;
+        color: white;
+      }
+      .login-promo-slide.active {
+        opacity: 1;
+      }
+      .login-promo-slide h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .promo-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+      .promo-item i {
+        font-size: 24px;
+        width: 30px;
+      }
+
+      .login-form-container {
+        width: 55%;
+        padding: 40px;
+        position: relative;
+      }
+      .login-form-container h3 {
+        font-size: 18px;
+        margin: 0 0 20px 0;
+        color: var(--text-primary);
+      }
+      .login-input-group {
+        margin-bottom: 20px;
+      }
+      .login-input-group label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 5px;
+        color: var(--text-secondary);
+      }
+      .login-input-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 16px;
+      }
+      .login-submit-btn {
+        width: 100%;
+        padding: 14px;
+        border-radius: 8px;
+        border: none;
+        background: var(--primary-gradient);
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .login-terms {
+        font-size: 12px;
+        color: var(--text-secondary);
+        text-align: center;
+        margin-top: 20px;
+      }
+      .login-terms a {
+        color: #6366f1;
+        text-decoration: none;
+      }
+
+      /* --- Itinerary Modal (Improved) --- */
+.itinerary-modal .modal-container {
+  width: 600px;
+  display: block; /* Overrides flex property */
+}
+.itinerary-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+.itinerary-header h2 {
+  margin: 0;
+  font-size: 24px;
+  text-align: center;
+}
+.itinerary-content {
+  padding: 20px 30px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.itinerary-content h3 {
+  color: #6366f1;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 5px;
+  margin-top: 25px;
+}
+.itinerary-content h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.itinerary-content ul {
+  padding-left: 20px;
+  list-style: "✈️  ";
+}
+.itinerary-content li {
+  margin-bottom: 10px;
+}
+      .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border-left-color: #6366f1;
+        animation: spin 1s ease infinite;
+        margin: 50px auto;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ======================= Animations & Responsive ======================= */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 1s ease-out;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes gradientAnimation {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .hero h1 {
+          font-size: 42px;
+        }
+        .hero .subtitle {
+          font-size: 16px;
+        }
+        .booking-inputs {
+          flex-wrap: wrap;
+        }
+        .input-group {
+          flex-basis: calc(50% - 10px);
+        }
+        .swap-btn {
+          display: none;
+        }
+        .features-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .destinations-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .fare-type-selector {
+          flex-wrap: wrap;
+        }
+        .fare-type-selector label {
+          flex-basis: calc(50% - 5px);
+        }
+        .lang-selector,
+        .main-nav {
+          display: none;
+          margin-left: 20px;
+        }
+      }
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 36px;
+        }
+        .nav-item span {
+          display: none;
+        }
+        .booking-inputs {
+          flex-direction: column;
+          gap: 10px;
+          align-items: stretch;
+        }
+        .swap-btn {
+          display: block;
+          transform: rotate(90deg);
+          height: 20px;
+          width: 100%;
+          border: none;
+          background: none;
+          margin: 5px 0;
+          order: 1;
+        }
+        .booking-inputs .from-group {
+          order: 0;
+        }
+        .booking-inputs .to-group {
+          order: 2;
+        }
+        .booking-actions {
+          flex-direction: column;
         }
 
-        .project-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
+        .features-grid,
+        .destinations-grid {
+          grid-template-columns: 1fr;
         }
-
-        .project-desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
+        .footer-content,
+        .footer-bottom {
+          flex-direction: column;
+          text-align: center;
+          gap: 30px;
         }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
+        .fare-type-selector label {
+          flex-basis: 100%;
         }
-
-        .tech-tag {
-            font-size: 0.75rem;
-            color: var(--accent);
-            background: rgba(6, 182, 212, 0.1);
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
+        .login-promo {
+          display: none;
         }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
+        .login-form-container {
+          width: 100%;
         }
+      }
+      @media (max-width: 768px) {
+  .train-card {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+  .train-timings {
+    width: 100%;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+  .train-fare {
+    width: 100%;
+    text-align: left !important;
+    margin-left: 0 !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+/* ======================= Flight & Bus Search Results ======================= */
+#flight-results-section, #bus-results-section {
+  display: none;
+  background: linear-gradient(to bottom, #EBF4FF, #FFFFFF);
+  padding: 100px 0 40px 0;
+}
+#back-to-flight-search-btn, #back-to-bus-search-btn {
+    background: none;
+    border: 1.5px solid #6366f1;
+    color: #6366f1;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.flight-card, .bus-card {
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  padding: 15px 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.flight-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.flight-info img {
+    height: 40px;
+}
+.flight-info h3, .bus-info h3 {
+    margin: 0;
+    font-size: 18px;
+}
+.flight-info p, .bus-info p {
+    color: var(--text-secondary);
+    margin: 2px 0 0 0;
+    font-size: 14px;
+}
+.flight-timings, .bus-timings {
+    display: flex;
+    gap: 20px;
+    text-align: center;
+}
+.flight-duration, .bus-duration {
+    text-align: center;
+}
+.flight-duration span, .bus-duration span {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+.flight-duration hr, .bus-duration hr {
+    border: 1px dashed var(--border-color);
+    margin: 4px 0;
+    width: 80px;
+}
+.bus-rating {
+    background-color: #16a34a;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+.flight-fare, .bus-fare {
+    text-align: right;
+}
+/* --- Price ko green color dein --- */
+.flight-fare h3, .bus-fare h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #16a34a; /* Green color */
+}
+/* --- Universal Book Now Button Style --- */
+.book-now-btn {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: all 0.3s ease;
+}
 
-        .link-icon {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-        }
-        .link-icon:hover {
-            color: var(--accent);
-        }
+.book-now-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+/* --- Passenger Details Modal --- */
+/* --- Passenger Details Modal (Improved) --- */
+.details-modal .modal-container {
+  width: 500px;
+  display: block; /* Overrides the flex property */
+}
+.details-modal .payment-header h2 {
+  color: var(--text-primary);
+  text-align: center; /* Title ko center karein */
+}
+.details-modal .payment-content {
+  padding: 30px; /* Thodi aur jagah dein */
+}
+.details-input-group {
+  margin-bottom: 18px; /* Fields ke beech ki jagah */
+}
+.details-input-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px; /* Label aur input ke beech jagah */
+  color: var(--text-primary);
+}
+.details-input-group input,
+.details-input-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: var(--font-body);
+  transition: all 0.3s ease;
+}
+.details-input-group input:focus,
+.details-input-group textarea:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  outline: none;
+}
+#submit-details-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: 700;
+  background: var(--primary-gradient); /* Same as Book Now button */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px; /* Thodi upar se jagah */
+  transition: all 0.3s ease;
+}
+#submit-details-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+/* --- New styles for Age/Gender row --- */
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+.form-row .details-input-group {
+  flex: 1; /* Dono fields ko barabar jagah do */
+}
+.details-input-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: var(--font-body);
+  background-color: white;
+}
 
-        /* =========================================
-           8. CONTACT SECTION
-           ========================================= */
-        .contact-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--bg-secondary);
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 1rem;
-            background: var(--bg-color);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 5px;
-            color: var(--text-primary);
-            font-family: inherit;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        /* =========================================
-           9. FOOTER
-           ========================================= */
-        footer {
-            background: var(--bg-secondary);
-            padding: 2rem 0;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 4rem;
-        }
-
-        .footer-text {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .footer-socials {
-            margin-top: 1rem;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-        }
-
-        .footer-socials a {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-        }
-
-        .footer-socials a:hover {
-            color: var(--accent);
-        }
-
-        /* =========================================
-           10. RESPONSIVE MEDIA QUERIES
-           ========================================= */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                height: 100vh;
-                width: 70%;
-                background: var(--bg-secondary);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                transition: var(--transition);
-                box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-            }
-
-            .nav-links.active {
-                right: 0;
-            }
-
-            .menu-btn {
-                display: block;
-                z-index: 1001;
-            }
-            
-            .about-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .stats {
-                justify-content: center;
-            }
-            
-            .contact-container {
-                padding: 1.5rem;
-            }
-        }
+/* --- Booking Success Page --- */
+/* --- Booking Success Page (Improved Overlay) --- */
+#booking-success-page {
+  display: none; /* Shuru mein hide rahega */
+  position: fixed; /* Sabse upar laane ke liye */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+   background: linear-gradient(135deg, #1e3a8a, #4c1d95); /* Dark background */
+  z-index: 3000; /* Sabse upar rakhega */
+  display: flex; /* Content ko center karne ke liye */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+.success-message i {
+    font-size: 80px;
+    color: #22c55e; /* Green color */
+}
+.success-message h1 {
+    font-size: 42px;
+    margin: 20px 0 10px 0;
+    color: white; /* Text ko white karein */
+}
+.success-message p {
+    font-size: 18px;
+    max-width: 500px;
+    margin: 0 auto 30px auto;
+    color: #d1d5db; /* Halki white/grey */
+}
+#back-to-home-btn {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+}
+/* --- My Bookings Page (Two-Column Layout) --- */
+#my-bookings-page {
+  padding: 120px 20px 40px 20px;
+  background-color: #f4f4f5;
+}
+#back-to-main-from-bookings-btn {
+  background: none;
+  border: 1.5px solid #6366f1;
+  color: #6366f1;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.booking-card {
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  border-left: 5px solid #6366f1;
+  position: relative;
+}
+.booking-card h3 {
+  margin: 0 0 15px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+  padding-right: 25px;
+}
+.booking-card-body {
+  display: flex; /* Yahi do columns banayega */
+  gap: 20px;
+}
+.booking-col {
+  width: 50%; /* Har column ko 50% jagah dega */
+}
+.booking-card p {
+  margin: 0 0 10px 0;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+.booking-card strong {
+  color: var(--text-primary);
+}
+.booking-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+}
+.cancel-cross-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+.cancel-ticket-btn {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+}
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="container">
+        <div class="header-content">
+          <a href="#" class="logo-container">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M 50,10 C 27.9,10 10,27.9 10,50 C 10,72.1 27.9,90 50,90 C 72.1,90 90,72.1 90,50 C 90,45.4 89.2,41 87.8,36.8 L 63.2,63.2 C 60.1,66.7 55.1,67.3 51.6,64.2 C 48.1,61.1 47.5,56.1 50.6,52.6 L 73.1,26.9 C 66.5,20.1 58.5,16.5 50,16.5 C 36.5,16.5 25.5,27.5 25.5,41 C 25.5,54.5 36.5,65.5 50,65.5 C 54.7,65.5 59.1,64.2 62.8,62 L 38,38 C 34.9,34.9 34.9,29.9 38,26.8 C 41.1,23.7 46.1,23.7 49.2,26.8 L 77.2,54.8 C 80.8,47.9 83.5,40 83.5,31.5 C 83.5,19.6 74.4,10 62.5,10 C 60.3,10 58.2,10.4 56.2,11.1 L 50,10 Z"
+                fill="url(#logoGradient)"
+              />
+              <defs>
+                <linearGradient
+                  id="logoGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop
+                    offset="0%"
+                    style="stop-color: #F97316; stop-opacity: 1"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #D946EF; stop-opacity: 1"
+                  />
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="logo-text">Routify</span>
+          </a>
 
-    <nav class="navbar">
-        <div class="container nav-container">
-            <a href="#" class="logo">Alex<span>.dev</span></a>
-            <div class="menu-btn" id="menuBtn">
-                <i class="fas fa-bars"></i>
-            </div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
+          <nav class="main-nav">
+            <a class="nav-item" data-page="flights"
+              ><i class="fas fa-plane-departure"></i><span>Flights</span></a
+            >
+            <a class="nav-item" data-page="buses"
+              ><i class="fas fa-bus"></i><span>Buses</span></a
+            >
+            <a class="nav-item active" data-page="trains"
+              ><i class="fas fa-train"></i><span>Trains</span></a
+            >
+            <!-- ======================= My Bookings Button ======================= -->
 
-    <section id="home" class="hero">
-        <div class="container hero-content reveal active">
-            <span class="hero-greeting">Hello, I'm</span>
-            <h1 class="hero-title">Alex Developer</h1>
-            <h2 class="hero-subtitle">I build <span id="typewriter"></span></h2>
+           
             
-            <div class="cta-buttons">
-                <a href="#contact" class="btn btn-primary">Hire Me</a>
-                <a href="#projects" class="btn btn-outline">View Work</a>
-            </div>
+          
+          </nav>
 
-            <div class="social-hero">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+          <div class="header-actions">
+          <a href="#" id="my-bookings-btn" class="nav-item"><i class="fas fa-ticket-alt"></i><span>My Bookings</span></a>
+            <a class="login-btn"
+              ><i class="fas fa-user-circle"></i><span> LOGIN </span></a
+            >
+     
+            <a class="login-btn" id="signup-btn"><i class="fas fa-user-plus"></i><span>Sign up</span></a>
+
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- TRAINS PAGE -->
+      <div id="trains-page" class="page-content active">
+        <section class="hero">
+          <div
+            class="hero-bg"
+            style="background-image: url('image12.jpg')"
+          ></div>
+          <div class="hero-overlay"></div>
+          <div class="container hero-content">
+            <h1 class="animate-fade-in-up">
+              Travel Smart – Book Trains Quickly
+            </h1>
+            <p class="subtitle animate-fade-in-up delay-1">
+              Catch the train in a click.
+            </p>
+            <div class="booking-box animate-fade-in-up delay-2">
+              <div class="booking-inputs">
+                <div class="input-group from-group">
+                  <label for="from-station">From</label>
+                  <input
+                    id="from-station"
+                    type="text"
+                    placeholder="New Delhi"
+                  />
+                </div>
+                <button class="swap-btn" aria-label="Swap Stations">
+                  <i class="fas fa-exchange-alt"></i>
+                </button>
+                <div class="input-group to-group">
+                  <label for="to-station">To</label>
+                  <input id="to-station" type="text" placeholder="Mumbai" />
+                </div>
+                <div class="input-group">
+                  <label for="travel-date">Date</label>
+                  <input
+                    id="travel-date"
+                    type="text"
+                    placeholder="Select Date"
+                    onfocus="(this.type='date')"
+                    onblur="(this.type='text')"
+                  />
+                </div>
+                <div class="input-group">
+                  <label>Class</label>
+                  <div class="class-selector">
+                    <span class="class-value">All</span>
+                    <span class="class-label">All Classes</span>
+                  </div>
+                  <!-- ADD THE DROPDOWN LIST BELOW -->
+                  <div class="class-dropdown" id="class-dropdown-list">
+                    <a href="#" data-value="All">All Class</a>
+                    <a href="#" data-value="SL">Sleeper Class</a>
+                    <a href="#" data-value="3A">Third AC</a>
+                    <a href="#" data-value="2A">Second AC</a>
+                    <a href="#" data-value="1A">First AC</a>
+                    <a href="#" data-value="2S">Second Seating</a>
+                    <a href="#" data-value="EV">Vistadome AC</a>
+                    <a href="#" data-value="CC">AC Chair Car</a>
+                  </div>
+                </div>
+              </div>
+              <div class="fare-type-selector">
+                <input
+                  type="radio"
+                  id="train-regular"
+                  name="train-fare"
+                  checked
+                /><label for="train-regular"
+                  ><span class="fare-title">Regular</span
+                  ><span class="fare-desc">Regular fares</span></label
+                >
+                <input
+                  type="radio"
+                  id="train-student"
+                  name="train-fare"
+                /><label for="train-student"
+                  ><span class="fare-title">Student</span
+                  ><span class="fare-desc">Extra discounts</span></label
+                >
+                <input type="radio" id="train-senior" name="train-fare" /><label
+                  for="train-senior"
+                  ><span class="fare-title">Senior Citizen</span
+                  ><span class="fare-desc">Up to ₹600 off</span></label
+                >
+                <input type="radio" id="train-forces" name="train-fare" /><label
+                  for="train-forces"
+                  ><span class="fare-title">Armed Forces</span
+                  ><span class="fare-desc">Up to ₹800 off</span></label
+                >
+              </div>
+              <div class="booking-actions">
+                <button class="search-btn">
+                  Search Trains <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="plan-trip-btn">✨ Plan My Trip</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      
+<!-- ======================= Train Search Results Section (With Ratings) ======================= -->
+<section id="train-results-section" style="display: none; background-color: rgb(235, 244, 255); padding: 100px 0 40px 0;">
+  <div class="container">
+    <div class="results-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; background: white; padding: 20px; border-radius: 12px; box-shadow: var(--shadow-md);">
+      <div>
+        <h2 style="font-size: 28px; margin: 0;" id="results-title">Trains from New Delhi to Mumbai</h2>
+        <p style="margin: 5px 0 0;" id="results-date">On: 25 Sep 2024</p>
+      </div>
+      <button id="back-to-search-btn" style="background: none; border: 1.5px solid #6366f1; color: #6366f1; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;">
+        <i class="fas fa-edit"></i> Modify Search
+      </button>
+    </div>
+
+    <!-- Dummy Train Card 1 -->
+    <div class="train-card" style="background: white; border-radius: 12px; margin-bottom: 15px; padding: 15px 20px; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+      <div class="train-info" style="flex-grow: 1;">
+        <h3 style="margin: 0; font-size: 18px;">Mumbai Rajdhani (12952)</h3>
+        <p style="color: var(--text-secondary); margin: 5px 0; font-size: 14px;">Runs on: M T W T F S S</p>
+        <span class="bus-rating" style="display: inline-block; margin-top: 5px;"><i class="fas fa-star"></i> 4.8</span>
+      </div>
+      <div class="train-timings" style="display: flex; gap: 20px; text-align: center;">
+        <div>
+          <span style="font-size: 16px; font-weight: 600;">17:00</span>
+          <p style="margin: 5px 0; font-size: 14px;">New Delhi</p>
+        </div>
+        <div>
+          <span style="color: var(--text-secondary); font-size: 14px;">15h 50m</span>
+          <hr style="border: 1px dashed var(--border-color); margin: 4px 0;">
+          <span style="color: var(--text-secondary); font-size: 12px;">0 Stops</span>
+        </div>
+        <div>
+          <span style="font-size: 16px; font-weight: 600;">08:50</span>
+          <p style="margin: 5px 0; font-size: 14px;">Mumbai Central</p>
+        </div>
+      </div>
+      <div class="train-fare" style="text-align: right; margin-left: 30px;">
+        <h3 style="margin: 0; font-size: 20px; color: #16a34a;">₹ 2,500</h3>
+        <p style="margin: 5px 0; color: var(--text-secondary); font-size: 14px;">Starting Fare</p>
+        <button class="book-now-btn">Book Now</button>
+      </div>
+    </div>
+    
+    <!-- Dummy Train Card 2 -->
+    <div class="train-card" style="background: white; border-radius: 12px; margin-bottom: 15px; padding: 15px 20px; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+      <div class="train-info" style="flex-grow: 1;">
+        <h3 style="margin: 0; font-size: 18px;">August Kranti Rajdhani (12954)</h3>
+        <p style="color: var(--text-secondary); margin: 5px 0; font-size: 14px;">Runs on: M T W T F S S</p>
+         <span class="bus-rating" style="display: inline-block; margin-top: 5px;"><i class="fas fa-star"></i> 4.7</span>
+      </div>
+      <div class="train-timings" style="display: flex; gap: 20px; text-align: center;">
+        <div>
+          <span style="font-size: 16px; font-weight: 600;">17:15</span>
+          <p style="margin: 5px 0; font-size: 14px;">H. Nizamuddin</p>
+        </div>
+        <div>
+          <span style="color: var(--text-secondary); font-size: 14px;">17h 45m</span>
+          <hr style="border: 1px dashed var(--border-color); margin: 4px 0;">
+          <span style="color: var(--text-secondary); font-size: 12px;">12 Stops</span>
+        </div>
+        <div>
+          <span style="font-size: 16px; font-weight: 600;">11:00</span>
+          <p style="margin: 5px 0; font-size: 14px;">Mumbai Central</p>
+        </div>
+      </div>
+      <div class="train-fare" style="text-align: right; margin-left: 30px;">
+        <h3 style="margin: 0; font-size: 20px; color: #16a34a;">₹ 2,200</h3>
+        <p style="margin: 5px 0; color: var(--text-secondary); font-size: 14px;">Starting Fare</p>
+        <button class="book-now-btn">Book Now</button>
+      </div>
+    </div>
+
+    <!-- Dummy Train Card 3 -->
+    <div class="train-card" style="background: white; border-radius: 12px; margin-bottom: 15px; padding: 15px 20px; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+      <div class="train-info" style="flex-grow: 1;">
+        <h3 style="margin: 0; font-size: 18px;">Duronto Express (22210)</h3>
+        <p style="color: var(--text-secondary); margin: 5px 0; font-size: 14px;">Runs on: T S</p>
+         <span class="bus-rating" style="display: inline-block; margin-top: 5px;"><i class="fas fa-star"></i> 4.5</span>
+      </div>
+      <div class="train-timings" style="display: flex; gap: 20px; text-align: center;">
+        <div>
+          <span style="font-size: 16px; font-weight: 600;">23:25</span>
+          <p style="margin: 5px 0; font-size: 14px;">New Delhi</p>
+        </div>
+        <div>
+          <span style="color: var(--text-secondary); font-size: 14px;">16h 10m</span>
+          <hr style="border: 1px dashed var(--border-color); margin: 4px 0;">
+          <span style="color: var(--text-secondary); font-size: 12px;">4 Stops</span>
+        </div>
+        <div>
+          <span style="font-size: 16px; font-weight: 600;">15:35</span>
+          <p style="margin: 5px 0; font-size: 14px;">Mumbai Central</p>
+        </div>
+      </div>
+      <div class="train-fare" style="text-align: right; margin-left: 30px;">
+        <h3 style="margin: 0; font-size: 20px; color: #16a34a;">₹ 1,800</h3>
+        <p style="margin: 5px 0; color: var(--text-secondary); font-size: 14px;">Starting Fare</p>
+        <button class="book-now-btn">Book Now</button>
+      </div>
+    </div>
+    
+    <!-- Dummy Train Card 4 -->
+    <div class="train-card" style="background: white; border-radius: 12px; margin-bottom: 15px; padding: 15px 20px; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+      <div class="train-info" style="flex-grow: 1;">
+        <h3 style="margin: 0; font-size: 18px;">Golden Temple Mail (12904)</h3>
+        <p style="color: var(--text-secondary); margin: 5px 0; font-size: 14px;">Runs on: M T W T F S S</p>
+        <span class="bus-rating" style="display: inline-block; margin-top: 5px;"><i class="fas fa-star"></i> 4.3</span>
+      </div>
+      <div class="train-timings" style="display: flex; gap: 20px; text-align: center;">
+        <div>
+          <span style="font-size: 16px; font-weight: 600;">07:40</span>
+          <p style="margin: 5px 0; font-size: 14px;">H. Nizamuddin</p>
+        </div>
+        <div>
+          <span style="color: var(--text-secondary); font-size: 14px;">21h 50m</span>
+          <hr style="border: 1px dashed var(--border-color); margin: 4px 0;">
+          <span style="color: var(--text-secondary); font-size: 12px;">30 Stops</span>
+        </div>
+        <div>
+          <span style="font-size: 16px; font-weight: 600;">05:30</span>
+          <p style="margin: 5px 0; font-size: 14px;">Mumbai Central</p>
+        </div>
+      </div>
+      <div class="train-fare" style="text-align: right; margin-left: 30px;">
+        <h3 style="margin: 0; font-size: 20px; color: #16a34a;">₹ 950</h3>
+        <p style="margin: 5px 0; color: var(--text-secondary); font-size: 14px;">Starting Fare</p>
+        <button class="book-now-btn">Book Now</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+        <section class="why-book">
+          <div class="container">
+            <div class="section-header reveal">
+              <h2>Why Book With Us?</h2>
+              <p>Experience seamless booking and premium travel services.</p>
+            </div>
+            <div class="features-grid">
+              <div class="feature-card reveal">
+                <div class="icon-wrapper"><i class="fas fa-bolt"></i></div>
+                <h3>Instant Booking</h3>
+                <p>
+                  Book your tickets in under a minute with our optimized flow.
+                </p>
+              </div>
+              <div class="feature-card reveal">
+                <div class="icon-wrapper">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Secure Payments</h3>
+                <p>
+                  We support all major payment methods through a secure gateway.
+                </p>
+              </div>
+              <div class="feature-card reveal">
+                <div class="icon-wrapper"><i class="fas fa-headset"></i></div>
+                <h3>24/7 Support</h3>
+                <p>
+                  Our dedicated support team is always available to assist you.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+        </section>
+
+        <section class="destinations">
+          <div class="container">
+            <div class="section-header reveal">
+              <h2>Top Destinations</h2>
+              <p>
+                Explore some of the most popular routes our travellers love.
+              </p>
+            </div>
+            <div class="destinations-grid">
+              <!-- Existing Images -->
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image5.jpg')"
+              >
+                <h3>Jaipur</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image6.jpg')"
+              >
+                <h3>Goa</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image7.jpg')"
+              >
+                <h3>Shimla</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image8.jpg')"
+              >
+                <h3>Varanasi</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image9.jpg')"
+              >
+                <h3>Kolkata</h3>
+              </div>
+              <!-- This is where your existing destination cards end -->
+
+<!-- ADD YOUR NEW IMAGES HERE -->
+<div
+  class="destination-card reveal"
+  style="background-image: url('chennai.jpg')"
+>
+  <h3>Chennai</h3>
+</div>
+<div
+  class="destination-card reveal"
+  style="background-image: url('hyderabad.jpg')"
+>
+  <h3>Hyderabad</h3>
+</div>
+<div
+  class="destination-card reveal"
+  style="background-image: url('bengaluru.jpg')"
+>
+  <h3>Bengaluru</h3>
+</div>
+<!-- Add three more cards in the same way -->
+
+              <!-- ADD YOUR NEW IMAGES HERE -->
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image14.jpg')"
+              >
+                <h3>Mumbai</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image15.jpg')"
+              >
+                <h3>Kerala</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image16.jpg')"
+              >
+                <h3>Leh</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image17.jpg')"
+              >
+                <h3>Agra</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image18.jpg')"
+              >
+                <h3>Ooty</h3>
+              </div>
+              <div
+  class="destination-card reveal"
+  style="background-image: url('amritsar.jpg')"
+>
+  <h3>Amritsar</h3>
+</div>
+
+<div
+  class="destination-card reveal"
+  style="background-image: url('rishikesh.jpg')"
+>
+  <h3>Rishikesh</h3>
+</div>
+
+<div
+  class="destination-card reveal"
+  style="background-image: url('darjeeling.jpg')"
+>
+  <h3>Darjeeling</h3>
+</div>
+            </div>
+          </div>
+        </section>
+        
+
+        <section class="faq">
+          <div class="container">
+            <div class="section-header reveal">
+              <h2>Have Questions?</h2>
+              <p>
+                Find answers to the most common questions about our services.
+              </p>
+            </div>
+            <div class="faq-list reveal">
+              <div class="faq-item">
+                <h4 class="faq-question">How do I book a train ticket?</h4>
+                <div class="faq-answer">
+                  <p>
+                    Simply enter your source and destination, choose your date,
+                    select a train from the list, provide passenger details, and
+                    complete the payment. It's that easy!
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">
+                 What are the payment options available?
+                </h4>
+                <div class="faq-answer">
+                  <p>
+                    We accept all major payment methods including Credit/Debit
+                    Cards, Net Banking, UPI (Google Pay, PhonePe, etc.), and
+                    various mobile wallets.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">
+                  Can I get a refund on cancellation?
+                </h4>
+                <div class="faq-answer">
+                  <p>
+                    Yes, refunds are processed instantly as per policies. The
+                    amount will be credited back to your original payment
+                    method.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">
+                  Can I modify my booking after confirmation?
+                </h4>
+                <div class="faq-answer">
+                  <p>
+                    Yes, you can modify details like travel date or passenger
+                    information within the allowed time frame, depending on the
+                    train's booking rules.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">Is my personal information safe?</h4>
+                <div class="faq-answer">
+                  <p>
+                    Absolutely! We use secure encryption protocols and comply
+                    with data protection laws to keep your personal and payment
+                    information safe.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">Are there any discounts available?</h4>
+                <div class="faq-answer">
+                  <p>
+                    Yes, we frequently offer special promotions and discounts.
+                    Keep an eye on our website or subscribe to our newsletter
+                    for the latest offers.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">
+                  What should I do if I face a payment issue?
+                </h4>
+                <div class="faq-answer">
+                  <p>
+                    If your payment fails or is delayed, please check your
+                    payment method, ensure sufficient funds, and try again. You
+                    can also contact our support team for assistance.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- FLIGHTS PAGE -->
+      <div id="flights-page" class="page-content">
+        <section class="hero">
+          <div
+            class="hero-bg"
+            style="background-image: url('image11.jpg')"
+          ></div>
+          <div class="hero-overlay"></div>
+          <div class="container hero-content">
+            <h1 class="animate-fade-in-up">
+              Fly Easy – Book Your Next Adventure
+            </h1>
+            <p class="subtitle animate-fade-in-up delay-1">
+              Find the best flight deals and reach your destination faster.
+            </p>
+            <div class="booking-box animate-fade-in-up delay-2">
+              <div class="booking-inputs">
+                <div class="input-group from-group">
+                  <label for="from-airport">From</label>
+                  <input
+                    id="from-airport"
+                    type="text"
+                    placeholder="Delhi (DEL)"
+                  />
+                </div>
+                <button class="swap-btn" aria-label="Swap Airports">
+                  <i class="fas fa-exchange-alt"></i>
+                </button>
+                <div class="input-group to-group">
+                  <label for="to-airport">To</label>
+                  <input id="to-airport" type="text" placeholder="Goa (GOI)" />
+                </div>
+                <div class="input-group">
+                  <label for="departure-date">Departure</label>
+                  <input
+                    id="departure-date"
+                    type="text"
+                    placeholder="Select Date"
+                    onfocus="(this.type='date')"
+                    onblur="(this.type='text')"
+                  />
+                </div>
+                <div class="input-group">
+                  <label for="return-date">Return</label>
+                  <input
+                    id="return-date"
+                    type="text"
+                    placeholder="Tap to add a return date"
+                    onfocus="(this.type='date')"
+                    onblur="(this.type='text')"
+                  />
+                </div>
+              </div>
+              <div class="fare-type-selector">
+                <input
+                  type="radio"
+                  id="flight-regular"
+                  name="flight-fare"
+                  checked
+                /><label for="flight-regular"
+                  ><span class="fare-title">Regular</span
+                  ><span class="fare-desc">Regular fares</span></label
+                >
+                <input
+                  type="radio"
+                  id="flight-student"
+                  name="flight-fare"
+                /><label for="flight-student"
+                  ><span class="fare-title">Student</span
+                  ><span class="fare-desc">Extra discounts</span></label
+                >
+                <input
+                  type="radio"
+                  id="flight-senior"
+                  name="flight-fare"
+                /><label for="flight-senior"
+                  ><span class="fare-title">Senior Citizen</span
+                  ><span class="fare-desc">Up to ₹600 off</span></label
+                >
+                <input
+                  type="radio"
+                  id="flight-forces"
+                  name="flight-fare"
+                /><label for="flight-forces"
+                  ><span class="fare-title">Armed Forces</span
+                  ><span class="fare-desc">Up to ₹600 off</span></label
+                >
+              </div>
+              <div class="booking-actions">
+                <button class="search-btn search-flights">
+                  Search Flights <i class="fas fa-paper-plane"></i>
+                </button>
+                <button class="plan-trip-btn">✨ Plan My Trip</button>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+<!-- ======================= Flight Search Results Section ======================= -->
+<!-- ======================= Flight Search Results Section (With Ratings) ======================= -->
+<section id="flight-results-section" style="display: none;">
+  <div class="container">
+    <div class="results-header">
+      <div>
+        <h2 id="flight-results-title">Flights from Delhi to Goa</h2>
+        <p id="flight-results-date">On: 28 Sep 2024</p>
+      </div>
+      <button id="back-to-flight-search-btn">
+        <i class="fas fa-edit"></i> Modify Search
+      </button>
+    </div>
+
+    <!-- Dummy Flight Card 1 -->
+    <div class="flight-card">
+      <div class="flight-info">
+        <img src="idigologo.png" alt="IndiGo">
+        <div>
+          <h3>IndiGo</h3>
+          <p>6E-2044</p>
+          <span class="bus-rating"><i class="fas fa-star"></i> 4.5</span>
+        </div>
+      </div>
+      <div class="flight-timings">
+        <div>
+          <span>20:00</span>
+          <p>DEL</p>
+        </div>
+        <div class="flight-duration">
+          <span>2h 10m</span>
+          <hr/>
+          <span class="stops">Non Stop</span>
+        </div>
+        <div>
+          <span>22:10</span>
+          <p>GOI</p>
+        </div>
+      </div>
+      <div class="flight-fare">
+          <div>
+              <h3>₹ 5,500</h3>
+              <p>Starting Fare</p>
+          </div>
+        <button class="book-now-btn">Book Now</button>
+      </div>
+    </div>
+    
+    <!-- Vistara Flight Card -->
+    <div class="flight-card">
+      <div class="flight-info">
+        <img src="vistaralogo.png" alt="Vistara">
+        <div>
+          <h3>Vistara</h3>
+          <p>UK-855</p>
+          <span class="bus-rating"><i class="fas fa-star"></i> 4.8</span>
+        </div>
+      </div>
+      <div class="flight-timings">
+        <div>
+          <span>18:30</span>
+          <p>DEL</p>
+        </div>
+        <div class="flight-duration">
+          <span>2h 15m</span>
+          <hr/>
+          <span class="stops">Non Stop</span>
+        </div>
+        <div>
+          <span>20:45</span>
+          <p>GOI</p>
+        </div>
+      </div>
+      <div class="flight-fare">
+          <div>
+              <h3>₹ 6,200</h3>
+              <p>Starting Fare</p>
+          </div>
+        <button class="book-now-btn">Book Now</button>
+      </div>
+    </div>
+
+    <!-- Air India Flight Card -->
+    <div class="flight-card">
+      <div class="flight-info">
+        <img src="airindialogo.png" alt="Air India">
+        <div>
+          <h3>Air India</h3>
+          <p>AI-887</p>
+          <span class="bus-rating"><i class="fas fa-star"></i> 4.4</span>
+        </div>
+      </div>
+      <div class="flight-timings">
+        <div>
+          <span>14:00</span>
+          <p>DEL</p>
+        </div>
+        <div class="flight-duration">
+          <span>2h 20m</span>
+          <hr/>
+          <span class="stops">Non Stop</span>
+        </div>
+        <div>
+          <span>16:20</span>
+          <p>GOI</p>
+        </div>
+      </div>
+      <div class="flight-fare">
+          <div>
+              <h3>₹ 5,950</h3>
+              <p>Starting Fare</p>
+          </div>
+        <button class="book-now-btn">Book Now</button>
+      </div>
+    </div>
+
+    <!-- SpiceJet Flight Card -->
+    <div class="flight-card">
+      <div class="flight-info">
+        <img src="spicejetlogo.png" alt="SpiceJet">
+        <div>
+          <h3>SpiceJet</h3>
+          <p>SG-817</p>
+          <span class="bus-rating"><i class="fas fa-star"></i> 4.1</span>
+        </div>
+      </div>
+      <div class="flight-timings">
+        <div>
+          <span>06:00</span>
+          <p>DEL</p>
+        </div>
+        <div class="flight-duration">
+          <span>2h 25m</span>
+          <hr/>
+          <span class="stops">Non Stop</span>
+        </div>
+        <div>
+          <span>08:25</span>
+          <p>GOI</p>
+        </div>
+      </div>
+      <div class="flight-fare">
+          <div>
+              <h3>₹ 4,800</h3>
+              <p>Starting Fare</p>
+          </div>
+        <button class="book-now-btn">Book Now</button>
+      </div>
+    </div>
+
+    <!-- Cathay Pacific Flight Card (Example for International) -->
+    <div class="flight-card">
+      <div class="flight-info">
+        <img src="catheypacificlogo.png" alt="Cathay Pacific">
+        <div>
+          <h3>Cathay Pacific</h3>
+          <p>CX-694</p>
+          <span class="bus-rating"><i class="fas fa-star"></i> 4.9</span>
+        </div>
+      </div>
+      <div class="flight-timings">
+        <div>
+          <span>22:00</span>
+          <p>DEL</p>
+        </div>
+        <div class="flight-duration">
+          <span>8h 45m</span>
+          <hr/>
+          <span class="stops">1 Stop (HKG)</span>
+        </div>
+        <div>
+          <span>10:45</span>
+          <p>NRT</p> <!-- Tokyo Narita Airport -->
+        </div>
+      </div>
+      <div class="flight-fare">
+          <div>
+              <h3>₹ 45,500</h3>
+              <p>Starting Fare</p>
+          </div>
+        <button class="book-now-btn">Book Now</button>
+      </div>
+    </div>
+
+    <!-- Emirates Flight Card (Example for International) -->
+    <div class="flight-card">
+      <div class="flight-info">
+        <img src="emiriteslogo.png" alt="Emirates">
+        <div>
+          <h3>Emirates</h3>
+          <p>EK-511</p>
+          <span class="bus-rating"><i class="fas fa-star"></i> 4.9</span>
+        </div>
+      </div>
+      <div class="flight-timings">
+        <div>
+          <span>04:15</span>
+          <p>DEL</p>
+        </div>
+        <div class="flight-duration">
+          <span>6h 30m</span>
+          <hr/>
+          <span class="stops">1 Stop (DXB)</span>
+        </div>
+        <div>
+          <span>08:45</span>
+          <p>LHR</p> <!-- London Heathrow Airport -->
+        </div>
+      </div>
+      <div class="flight-fare">
+          <div>
+              <h3>₹ 52,000</h3>
+              <p>Starting Fare</p>
+          </div>
+        <button class="book-now-btn">Book Now</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+        <section class="partners-section">
+          <div class="container">
+            <div class="section-header reveal">
+              <h2>Our Airline Partners</h2>
+              <p>We've partnered with the best to bring you exclusive fares.</p>
+            </div>
+            <div class="partners-grid reveal">
+              <div class="partner-logo">
+                <img src="idigologo.png" alt="IndiGo" />
+              </div>
+              <div class="partner-logo">
+                <img src="vistaralogo.png" alt="Vistara" />
+              </div>
+              <div class="partner-logo">
+                <img src="airindialogo.png" alt="Air India" />
+              </div>
+              <div class="partner-logo">
+                <img src="spicejetlogo.png" alt="SpiceJet" />
+              </div>
+              <div class="partner-logo">
+                <img src="catheypacificlogo.png" alt="Cathay Pacific" />
+              </div>
+              <div class="partner-logo">
+                <img src="emiriteslogo.png" alt="Emirates" />
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="why-book">
+          <div class="container">
+            <div class="section-header reveal">
+              <h2>Why Book With Us?</h2>
+              <p>Experience seamless booking and premium travel services.</p>
+            </div>
+            <div class="features-grid">
+              <div class="feature-card reveal">
+                <div class="icon-wrapper"><i class="fas fa-bolt"></i></div>
+                <h3>Instant Booking</h3>
+                <p>
+                  Book your tickets in under a minute with our optimized flow.
+                </p>
+              </div>
+              <div class="feature-card reveal">
+                <div class="icon-wrapper">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Secure Payments</h3>
+                <p>
+                  We support all major payment methods through a secure gateway.
+                </p>
+              </div>
+              <div class="feature-card reveal">
+                <div class="icon-wrapper"><i class="fas fa-headset"></i></div>
+                <h3>24/7 Support</h3>
+                <p>
+                  Our dedicated support team is always available to assist you.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="destinations">
+          <div class="container">
+            <div class="section-header reveal">
+              <h2>Top Destinations</h2>
+              <p>
+                Explore some of the most popular routes our travellers love.
+              </p>
+            </div>
+            <div class="destinations-grid">
+              <!-- Existing Images -->
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image5.jpg')"
+              >
+                <h3>Jaipur</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image6.jpg')"
+              >
+                <h3>Goa</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image7.jpg')"
+              >
+                <h3>Shimla</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image8.jpg')"
+              >
+                <h3>Varanasi</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image9.jpg')"
+              >
+                <h3>Kolkata</h3>
+              </div>
+              <!-- This is where your existing destination cards end -->
+
+<!-- ADD YOUR NEW IMAGES HERE -->
+<div
+  class="destination-card reveal"
+  style="background-image: url('chennai.jpg')"
+>
+  <h3>Chennai</h3>
+</div>
+<div
+  class="destination-card reveal"
+  style="background-image: url('hyderabad.jpg')"
+>
+  <h3>Hyderabad</h3>
+</div>
+<div
+  class="destination-card reveal"
+  style="background-image: url('bengaluru.jpg')"
+>
+  <h3>Bengaluru</h3>
+</div>
+<!-- Add three more cards in the same way -->
+
+              <!-- ADD YOUR NEW IMAGES HERE -->
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image14.jpg')"
+              >
+                <h3>Mumbai</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image15.jpg')"
+              >
+                <h3>Kerala</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image16.jpg')"
+              >
+                <h3>Leh</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image17.jpg')"
+              >
+                <h3>Agra</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image18.jpg')"
+              >
+                <h3>Ooty</h3>
+              </div>
+              <div
+  class="destination-card reveal"
+  style="background-image: url('amritsar.jpg')"
+>
+  <h3>Amritsar</h3>
+</div>
+
+<div
+  class="destination-card reveal"
+  style="background-image: url('rishikesh.jpg')"
+>
+  <h3>Rishikesh</h3>
+</div>
+
+<div
+  class="destination-card reveal"
+  style="background-image: url('darjeeling.jpg')"
+>
+  <h3>Darjeeling</h3>
+</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="faq">
+          <div class="container">
+            <div class="section-header reveal">
+              <h2>Have Questions?</h2>
+              <p>
+                Find answers to the most common questions about our services.
+              </p>
+            </div>
+            <div class="faq-list reveal">
+              <div class="faq-item">
+                <h4 class="faq-question">How do I book a train ticket?</h4>
+                <div class="faq-answer">
+                  <p>
+                    Simply enter your source and destination, choose your date,
+                    select a train from the list, provide passenger details, and
+                    complete the payment. It's that easy!
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">
+                  What are the payment options available?
+                </h4>
+                <div class="faq-answer">
+                  <p>
+                    We accept all major payment methods including Credit/Debit
+                    Cards, Net Banking, UPI (Google Pay, PhonePe, etc.), and
+                    various mobile wallets.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">
+                  Can I get a refund on cancellation?
+                </h4>
+                <div class="faq-answer">
+                  <p>
+                    Yes, refunds are processed instantly as per policies. The
+                    amount will be credited back to your original payment
+                    method.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">
+                  Can I modify my booking after confirmation?
+                </h4>
+                <div class="faq-answer">
+                  <p>
+                    Yes, you can modify details like travel date or passenger
+                    information within the allowed time frame, depending on the
+                    train's booking rules.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">Is my personal information safe?</h4>
+                <div class="faq-answer">
+                  <p>
+                    Absolutely! We use secure encryption protocols and comply
+                    with data protection laws to keep your personal and payment
+                    information safe.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">Are there any discounts available?</h4>
+                <div class="faq-answer">
+                  <p>
+                    Yes, we frequently offer special promotions and discounts.
+                    Keep an eye on our website or subscribe to our newsletter
+                    for the latest offers.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">
+                  What should I do if I face a payment issue?
+                </h4>
+                <div class="faq-answer">
+                  <p>
+                    If your payment fails or is delayed, please check your
+                    payment method, ensure sufficient funds, and try again. You
+                    can also contact our support team for assistance.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- BUSES PAGE -->
+      <div id="buses-page" class="page-content">
+        <section class="hero">
+          <div class="hero-bg" style="background-image: url('bus.jpg')"></div>
+          <div class="hero-overlay"></div>
+          <div class="container hero-content">
+            <h1 class="animate-fade-in-up">InterCity SmartBus Tickets</h1>
+            <p class="subtitle animate-fade-in-up delay-1">
+              Book buses with amazing offers and travel in comfort.
+            </p>
+            <div class="booking-box animate-fade-in-up delay-2">
+              <div class="booking-inputs">
+                <div class="input-group from-group">
+                  <label for="from-city">From</label>
+                  <input id="from-city" type="text" placeholder="Mumbai" />
+                </div>
+                <button class="swap-btn" aria-label="Swap Cities">
+                  <i class="fas fa-exchange-alt"></i>
+                </button>
+                <div class="input-group to-group">
+                  <label for="to-city">To</label>
+                  <input id="to-city" type="text" placeholder="Pune" />
+                </div>
+                <div class="input-group">
+                  <label for="bus-travel-date">Date</label>
+                  <input
+                    id="bus-travel-date"
+                    type="text"
+                    placeholder="Select Date"
+                    onfocus="(this.type='date')"
+                    onblur="(this.type='text')"
+                  />
+                </div>
+              </div>
+              <div class="booking-actions">
+                <button class="search-btn">
+                  Search Buses <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="plan-trip-btn">✨ Plan My Trip</button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="bus-results-section" style="display: none;">
+    <div class="container">
+        <div class="results-header">
+            <div>
+                <h2 id="bus-results-title">Buses from Mumbai to Pune</h2>
+                <p id="bus-results-date">On: 30 Sep 2024</p>
+            </div>
+            <button id="back-to-bus-search-btn">
+                <i class="fas fa-edit"></i> Modify Search
+            </button>
+        </div>
+
+        <!-- Dummy Bus Card 1 -->
+        <div class="bus-card">
+            <div class="bus-info">
+                <h3>Zingbus</h3>
+                <p>AC Sleeper (2+1)</p>
+                <span class="bus-rating"><i class="fas fa-star"></i> 4.5</span>
+            </div>
+            <div class="bus-timings">
+                <div>
+                    <span>22:45</span>
+                    <p>Mumbai</p>
+                </div>
+                <div class="bus-duration">
+                    <span>3h 30m</span>
+                    <hr/>
+                </div>
+                <div>
+                    <span>02:15</span>
+                    <p>Pune</p>
+                </div>
+            </div>
+            <div class="bus-fare">
+                <div>
+                    <h3>₹ 850</h3>
+                    <p>Starting Fare</p>
+                </div>
+                <button class="book-now-btn">Book Now</button>
             </div>
         </div>
-        <a href="#about" class="scroll-down">
-            <i class="fas fa-chevron-down"></i>
-        </a>
-    </section>
+        <!-- IntrCity SmartBus Card -->
+<div class="bus-card">
+  <div class="bus-info">
+    <h3>IntrCity SmartBus</h3>
+    <p>Volvo Multi-Axle AC Sleeper (2+1)</p>
+    <span class="bus-rating"><i class="fas fa-star"></i> 4.8</span>
+  </div>
+  <div class="bus-timings">
+    <div>
+      <span>21:30</span>
+      <p>Mumbai</p>
+    </div>
+    <div class="bus-duration">
+      <span>3h 45m</span>
+      <hr/>
+    </div>
+    <div>
+      <span>01:15</span>
+      <p>Pune</p>
+    </div>
+  </div>
+  <div class="bus-fare">
+    <div>
+      <h3>₹ 1,100</h3>
+      <p>Starting Fare</p>
+    </div>
+    <button class="book-now-btn">Book Now</button>
+  </div>
+</div>
 
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-title reveal">About Me</h2>
-            <p class="section-subtitle reveal">Get to know me better</p>
-            
-            <div class="about-content">
-                <div class="about-img-wrapper reveal delay-100">
-                    <div class="about-img">
-                        <i class="fas fa-user"></i>
-                    </div>
-                </div>
-                <div class="about-text reveal delay-200">
-                    <h3>Passionate Full Stack Developer based in India</h3>
-                    <p>
-                        I am a dedicated <strong>Software Engineering Student</strong> with a keen interest in building scalable web applications and solving complex algorithmic problems. 
-                        My journey in coding started with C++ and has evolved into modern web development with the MERN stack.
-                    </p>
-                    <p>
-                        I enjoy turning complex problems into simple, beautiful, and intuitive designs. When I'm not pushing pixels, you'll find me exploring new technologies or solving DSA problems on LeetCode.
-                    </p>
-                    
-                    <div class="stats">
-                        <div class="stat-item">
-                            <h4>20+</h4>
-                            <p>Projects Completed</p>
-                        </div>
-                        <div class="stat-item">
-                            <h4>200+</h4>
-                            <p>DSA Problems Solved</p>
-                        </div>
-                    </div>
-                </div>
+<!-- GoTour Card -->
+<div class="bus-card">
+  <div class="bus-info">
+    <h3>GoTour</h3>
+    <p>AC Seater (2+2)</p>
+    <span class="bus-rating"><i class="fas fa-star"></i> 4.2</span>
+  </div>
+  <div class="bus-timings">
+    <div>
+      <span>08:00</span>
+      <p>Mumbai</p>
+    </div>
+    <div class="bus-duration">
+      <span>4h 00m</span>
+      <hr/>
+    </div>
+    <div>
+      <span>12:00</span>
+      <p>Pune</p>
+    </div>
+  </div>
+  <div class="bus-fare">
+    <div>
+      <h3>₹ 650</h3>
+      <p>Starting Fare</p>
+    </div>
+    <button class="book-now-btn">Book Now</button>
+  </div>
+</div>
+
+<!-- Prasanna Purple Card -->
+<div class="bus-card">
+  <div class="bus-info">
+    <h3>Prasanna Purple</h3>
+    <p>NON AC Seater (2+2)</p>
+    <span class="bus-rating"><i class="fas fa-star"></i> 3.9</span>
+  </div>
+  <div class="bus-timings">
+    <div>
+      <span>11:00</span>
+      <p>Mumbai</p>
+    </div>
+    <div class="bus-duration">
+      <span>4h 15m</span>
+      <hr/>
+    </div>
+    <div>
+      <span>15:15</span>
+      <p>Pune</p>
+    </div>
+  </div>
+  <div class="bus-fare">
+    <div>
+      <h3>₹ 500</h3>
+      <p>Starting Fare</p>
+    </div>
+    <button class="book-now-btn">Book Now</button>
+  </div>
+</div>
+
+<!-- Neeta Travels Card -->
+<div class="bus-card">
+  <div class="bus-info">
+    <h3>Neeta Travels</h3>
+    <p>Volvo A/C Semi Sleeper (2+2)</p>
+    <span class="bus-rating"><i class="fas fa-star"></i> 4.6</span>
+  </div>
+  <div class="bus-timings">
+    <div>
+      <span>14:30</span>
+      <p>Mumbai</p>
+    </div>
+    <div class="bus-duration">
+      <span>3h 30m</span>
+      <hr/>
+    </div>
+    <div>
+      <span>18:00</span>
+      <p>Pune</p>
+    </div>
+  </div>
+  <div class="bus-fare">
+    <div>
+      <h3>₹ 950</h3>
+      <p>Starting Fare</p>
+    </div>
+    <button class="book-now-btn">Book Now</button>
+  </div>
+</div>
+
+<!-- Safar Express Card -->
+<div class="bus-card">
+  <div class="bus-info">
+    <h3>Safar Express</h3>
+    <p>AC Sleeper (2+1)</p>
+    <span class="bus-rating"><i class="fas fa-star"></i> 4.1</span>
+  </div>
+  <div class="bus-timings">
+    <div>
+      <span>23:30</span>
+      <p>Mumbai</p>
+    </div>
+    <div class="bus-duration">
+      <span>3h 15m</span>
+      <hr/>
+    </div>
+    <div>
+      <span>02:45</span>
+      <p>Pune</p>
+    </div>
+  </div>
+  <div class="bus-fare">
+    <div>
+      <h3>₹ 800</h3>
+      <p>Starting Fare</p>
+    </div>
+    <button class="book-now-btn">Book Now</button>
+  </div>
+</div>
+
+<!-- Orange Tours Card -->
+<div class="bus-card">
+  <div class="bus-info">
+    <h3>Orange Tours</h3>
+    <p>Volvo Multi-Axle Sleeper A/C (2+1)</p>
+    <span class="bus-rating"><i class="fas fa-star"></i> 4.7</span>
+  </div>
+  <div class="bus-timings">
+    <div>
+      <span>20:00</span>
+      <p>Mumbai</p>
+    </div>
+    <div class="bus-duration">
+      <span>3h 40m</span>
+      <hr/>
+    </div>
+    <div>
+      <span>23:40</span>
+      <p>Pune</p>
+    </div>
+  </div>
+  <div class="bus-fare">
+    <div>
+      <h3>₹ 1200</h3>
+      <p>Starting Fare</p>
+    </div>
+    <button class="book-now-btn">Book Now</button>
+  </div>
+</div>
+
+    </div>
+</section>
+        <section class="why-book">
+          <div class="container">
+            <div class="section-header reveal">
+              <h2>Why Book With Us?</h2>
+              <p>Experience seamless booking and premium travel services.</p>
             </div>
-        </div>
-    </section>
-
-    <section id="skills" class="section" style="background: rgba(255,255,255,0.02);">
-        <div class="container">
-            <h2 class="section-title reveal">Technical Skills</h2>
-            <p class="section-subtitle reveal">My coding arsenal</p>
-            
-            <div class="skills-container">
-                <div class="skill-card reveal delay-100">
-                    <div class="skill-icon"><i class="fab fa-html5"></i></div>
-                    <div class="skill-name">HTML5</div>
+            <div class="features-grid">
+              <div class="feature-card reveal">
+                <div class="icon-wrapper"><i class="fas fa-bolt"></i></div>
+                <h3>Instant Booking</h3>
+                <p>
+                  Book your tickets in under a minute with our optimized flow.
+                </p>
+              </div>
+              <div class="feature-card reveal">
+                <div class="icon-wrapper">
+                  <i class="fas fa-shield-alt"></i>
                 </div>
-                <div class="skill-card reveal delay-100">
-                    <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
-                    <div class="skill-name">CSS3</div>
-                </div>
-                <div class="skill-card reveal delay-200">
-                    <div class="skill-icon"><i class="fab fa-js"></i></div>
-                    <div class="skill-name">JavaScript</div>
-                </div>
-                <div class="skill-card reveal delay-200">
-                    <div class="skill-icon"><i class="fab fa-react"></i></div>
-                    <div class="skill-name">React</div>
-                </div>
-                <div class="skill-card reveal delay-300">
-                    <div class="skill-icon"><i class="fab fa-node-js"></i></div>
-                    <div class="skill-name">Node.js</div>
-                </div>
-                <div class="skill-card reveal delay-300">
-                    <div class="skill-icon"><i class="fas fa-database"></i></div>
-                    <div class="skill-name">MongoDB</div>
-                </div>
-                <div class="skill-card reveal delay-300">
-                    <div class="skill-icon"><i class="fab fa-git-alt"></i></div>
-                    <div class="skill-name">Git</div>
-                </div>
-                <div class="skill-card reveal delay-300">
-                    <div class="skill-icon"><i class="fas fa-code"></i></div>
-                    <div class="skill-name">C++ / DSA</div>
-                </div>
+                <h3>Secure Payments</h3>
+                <p>
+                  We support all major payment methods through a secure gateway.
+                </p>
+              </div>
+              <div class="feature-card reveal">
+                <div class="icon-wrapper"><i class="fas fa-headset"></i></div>
+                <h3>24/7 Support</h3>
+                <p>
+                  Our dedicated support team is always available to assist you.
+                </p>
+              </div>
             </div>
-        </div>
-    </section>
+          </div>
+          
+        </section>
 
-    <section id="projects" class="section">
-        <div class="container">
-            <h2 class="section-title reveal">Featured Projects</h2>
-            <p class="section-subtitle reveal">Some things I've built</p>
-            
-            <div class="projects-grid">
-                <div class="project-card reveal delay-100">
-                    <div class="project-img">
-                        <i class="fas fa-laptop-code fa-3x"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">E-Commerce Platform</h3>
-                        <p class="project-desc">A full-stack shopping platform with cart functionality, user authentication, and payment gateway integration.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn-sm btn-outline" style="padding: 5px 10px; font-size: 0.8rem;">Live Demo</a>
-                            <a href="#" class="link-icon"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card reveal delay-200">
-                    <div class="project-img">
-                        <i class="fas fa-plane fa-3x"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Travel Booking System</h3>
-                        <p class="project-desc">A comprehensive system for booking flights and hotels with real-time availability checking.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML/CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">PHP</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn-sm btn-outline" style="padding: 5px 10px; font-size: 0.8rem;">Live Demo</a>
-                            <a href="#" class="link-icon"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card reveal delay-300">
-                    <div class="project-img">
-                        <i class="fas fa-robot fa-3x"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">AI Task Manager</h3>
-                        <p class="project-desc">A productivity tool that uses AI to categorize and prioritize daily tasks for maximum efficiency.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Django</span>
-                            <span class="tech-tag">OpenAI API</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn-sm btn-outline" style="padding: 5px 10px; font-size: 0.8rem;">Live Demo</a>
-                            <a href="#" class="link-icon"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
+        <section class="destinations">
+          <div class="container">
+            <div class="section-header reveal">
+              <h2>Top Destinations</h2>
+              <p>
+                Explore some of the most popular routes our travellers love.
+              </p>
             </div>
-        </div>
-    </section>
+            <div class="destinations-grid">
+              <!-- Existing Images -->
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image5.jpg')"
+              >
+                <h3>Jaipur</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image6.jpg')"
+              >
+                <h3>Goa</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image7.jpg')"
+              >
+                <h3>Shimla</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image8.jpg')"
+              >
+                <h3>Varanasi</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image9.jpg')"
+              >
+                <h3>Kolkata</h3>
+              </div>
+              <!-- This is where your existing destination cards end -->
 
-    <section id="contact" class="section" style="background: rgba(255,255,255,0.02);">
-        <div class="container">
-            <h2 class="section-title reveal">Get In Touch</h2>
-            <p class="section-subtitle reveal">Have a project in mind?</p>
-            
-            <div class="contact-container reveal delay-200">
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label class="form-label">Name</label>
-                        <input type="text" class="form-control" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-control" placeholder="your@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Message</label>
-                        <textarea class="form-control" placeholder="Tell me about your project..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
-                </form>
+<!-- ADD YOUR NEW IMAGES HERE -->
+<div
+  class="destination-card reveal"
+  style="background-image: url('chennai.jpg')"
+>
+  <h3>Chennai</h3>
+</div>
+<div
+  class="destination-card reveal"
+  style="background-image: url('hyderabad.jpg')"
+>
+  <h3>Hyderabad</h3>
+</div>
+<div
+  class="destination-card reveal"
+  style="background-image: url('bengaluru.jpg')"
+>
+  <h3>Bengaluru</h3>
+</div>
+<!-- Add three more cards in the same way -->
+
+              <!-- ADD YOUR NEW IMAGES HERE -->
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image14.jpg')"
+              >
+                <h3>Mumbai</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image15.jpg')"
+              >
+                <h3>Kerala</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image16.jpg')"
+              >
+                <h3>Leh</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image17.jpg')"
+              >
+                <h3>Agra</h3>
+              </div>
+              <div
+                class="destination-card reveal"
+                style="background-image: url('image18.jpg')"
+              >
+                <h3>Ooty</h3>
+              </div>
+              <div
+  class="destination-card reveal"
+  style="background-image: url('amritsar.jpg')"
+>
+  <h3>Amritsar</h3>
+</div>
+
+<div
+  class="destination-card reveal"
+  style="background-image: url('rishikesh.jpg')"
+>
+  <h3>Rishikesh</h3>
+</div>
+
+<div
+  class="destination-card reveal"
+  style="background-image: url('darjeeling.jpg')"
+>
+  <h3>Darjeeling</h3>
+</div>
             </div>
+          </div>
+        </section>
+        
+
+        <section class="faq">
+          <div class="container">
+            <div class="section-header reveal">
+              <h2>Have Questions?</h2>
+              <p>
+                Find answers to the most common questions about our services.
+              </p>
+            </div>
+            <div class="faq-list reveal">
+              <div class="faq-item">
+                <h4 class="faq-question">How do I book a train ticket?</h4>
+                <div class="faq-answer">
+                  <p>
+                    Simply enter your source and destination, choose your date,
+                    select a train from the list, provide passenger details, and
+                    complete the payment. It's that easy!
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">
+                 What are the payment options available?
+                </h4>
+                <div class="faq-answer">
+                  <p>
+                    We accept all major payment methods including Credit/Debit
+                    Cards, Net Banking, UPI (Google Pay, PhonePe, etc.), and
+                    various mobile wallets.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">
+                  Can I get a refund on cancellation?
+                </h4>
+                <div class="faq-answer">
+                  <p>
+                    Yes, refunds are processed instantly as per policies. The
+                    amount will be credited back to your original payment
+                    method.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">
+                  Can I modify my booking after confirmation?
+                </h4>
+                <div class="faq-answer">
+                  <p>
+                    Yes, you can modify details like travel date or passenger
+                    information within the allowed time frame, depending on the
+                    train's booking rules.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">Is my personal information safe?</h4>
+                <div class="faq-answer">
+                  <p>
+                    Absolutely! We use secure encryption protocols and comply
+                    with data protection laws to keep your personal and payment
+                    information safe.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">Are there any discounts available?</h4>
+                <div class="faq-answer">
+                  <p>
+                    Yes, we frequently offer special promotions and discounts.
+                    Keep an eye on our website or subscribe to our newsletter
+                    for the latest offers.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <h4 class="faq-question">
+                  What should I do if I face a payment issue?
+                </h4>
+                <div class="faq-answer">
+                  <p>
+                    If your payment fails or is delayed, please check your
+                    payment method, ensure sufficient funds, and try again. You
+                    can also contact our support team for assistance.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    
+    </main>
+    <!-- ======================= My Bookings Page ======================= -->
+<div id="my-bookings-page" class="page-content" style="display: none;">
+  <div class="container">
+    <div class="results-header">
+      <h2>My Bookings</h2>
+      <button id="back-to-main-from-bookings-btn">Go Back</button>
+    </div>
+    <div id="bookings-list-container">
+      <!-- Booked tickets will be shown here -->
+    </div>
+    <div id="no-bookings-message" style="text-align: center; display: none;">
+      <h3>No Bookings Found</h3>
+      <p>You haven't booked any tickets yet. Start searching now!</p>
+    </div>
+  </div>
+</div>
+
+    <div class="modal-overlay login-modal-overlay">
+      <div class="modal-container">
+        <div class="login-promo">
+          <div class="login-promo-slider">
+            <div
+              class="login-promo-slide active"
+              style="
+                background-image: linear-gradient(
+                    rgba(0, 0, 0, 0.5),
+                    rgba(0, 0, 0, 0.5)
+                  ),
+                  url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop');
+              "
+            >
+              <h2>Sign up now to get</h2>
+              <div class="promo-item">
+                <i class="fas fa-plane-departure"></i
+                ><span><b>FLAT 10% OFF</b><br />On Domestic Flight*</span>
+              </div>
+              <div class="promo-item">
+                <i class="fas fa-hotel"></i
+                ><span><b>FLAT 20% OFF*</b><br />On Domestic Hotels</span>
+              </div>
+              <div class="promo-item">
+                <i class="fas fa-train"></i
+                ><span
+                  ><b>Zero Convenience Fee*</b><br />On Train Bookings</span
+                >
+              </div>
+            </div>
+            <div
+              class="login-promo-slide"
+              style="
+                background-image: linear-gradient(
+                    rgba(0, 0, 0, 0.5),
+                    rgba(0, 0, 0, 0.5)
+                  ),
+                  url('image13.jpg');
+              "
+            >
+              <h2>Sign up now to join the club of</h2>
+              <h2>10 crore+ Happy Travellers</h2>
+            </div>
+            <div
+              class="login-promo-slide"
+              style="
+                background-image: linear-gradient(
+                    rgba(0, 0, 0, 0.5),
+                    rgba(0, 0, 0, 0.5)
+                  ),
+                  url('https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?q=80&w=2069&auto=format&fit=crop');
+              "
+            >
+              <h2>Exclusive Deals Just for You</h2>
+              <p>Get access to member-only offers and discounts.</p>
+            </div>
+          </div>
         </div>
-    </section>
+        <div class="login-form-container">
+          <button class="close-modal-btn">&times;</button>
+          <h3>Personal Account</h3>
+          <div class="login-input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" />
+          </div>
+          <div class="login-input-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+            />
+          </div>
+          <button class="login-submit-btn">Login</button>
+          <p class="login-terms">
+            By proceeding, you agree to Routify's
+            <a href="#">Privacy Policy</a>, <a href="#">User Agreement</a> and
+            <a href="#">T&Cs</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay signup-modal-overlay">
+  <div class="modal-container">
+    <div class="login-promo">
+      <div class="login-promo-slider">
+        <div
+          class="login-promo-slide active"
+          style="
+            background-image: linear-gradient(
+                rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0.5)
+              ),
+              url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop');
+          "
+        >
+          <h2>Create your account & get</h2>
+          <div class="promo-item">
+            <i class="fas fa-plane-departure"></i>
+            <span><b>FLAT 10% OFF</b><br />On Domestic Flights*</span>
+          </div>
+          <div class="promo-item">
+            <i class="fas fa-hotel"></i>
+            <span><b>FLAT 20% OFF*</b><br />On Domestic Hotels</span>
+          </div>
+          <div class="promo-item">
+            <i class="fas fa-train"></i>
+            <span><b>Zero Convenience Fee*</b><br />On Train Bookings</span>
+          </div>
+        </div>
+        <div
+          class="login-promo-slide"
+          style="
+            background-image: linear-gradient(
+                rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0.5)
+              ),
+              url('image13.jpg');
+          "
+        >
+          <h2>Join 10 Crore+ Happy Travellers</h2>
+        </div>
+        <div
+          class="login-promo-slide"
+          style="
+            background-image: linear-gradient(
+                rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0.5)
+              ),
+              url('https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?q=80&w=2069&auto=format&fit=crop');
+          "
+        >
+          <h2>Exclusive Deals for Members</h2>
+          <p>Get access to member-only offers and discounts.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="login-form-container">
+      <button class="close-modal-btn">&times;</button>
+      <h3>Create Personal Account</h3>
+      <div class="login-input-group">
+        <label for="signup-email">Email</label>
+        <input type="email" id="signup-email" placeholder="Enter your email" />
+      </div>
+      <div class="login-input-group">
+        <label for="signup-password">Password</label>
+        <input
+          type="password"
+          id="signup-password"
+          placeholder="Create a password"
+        />
+      </div>
+      <button class="login-submit-btn">Sign Up</button>
+      <p class="login-terms">
+        By signing up, you agree to Routify's
+        <a href="#">Privacy Policy</a>, <a href="#">User Agreement</a>, and
+        <a href="#">T&Cs</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+
+    <div class="modal-overlay itinerary-modal">
+      <div class="modal-container">
+        <div class="itinerary-header">
+          <h2 id="itinerary-title">Your AI-Powered Itinerary</h2>
+          <button class="close-modal-btn">&times;</button>
+        </div>
+        <div class="itinerary-content" id="itinerary-content">
+          <!-- AI content will be injected here -->
+        </div>
+      </div>
+    </div>
 
     <footer>
-        <div class="container">
-            <a href="#" class="logo" style="font-size: 1.2rem;">Alex<span>.dev</span></a>
-            <div class="footer-socials">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fas fa-envelope"></i></a>
-            </div>
-            <p class="footer-text" style="margin-top: 1rem;">
-                &copy; 2024 Alex Developer. All rights reserved.
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-about">
+            <a href="#" class="footer-logo">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M 50,10 C 27.9,10 10,27.9 10,50 C 10,72.1 27.9,90 50,90 C 72.1,90 90,72.1 90,50 C 90,45.4 89.2,41 87.8,36.8 L 63.2,63.2 C 60.1,66.7 55.1,67.3 51.6,64.2 C 48.1,61.1 47.5,56.1 50.6,52.6 L 73.1,26.9 C 66.5,20.1 58.5,16.5 50,16.5 C 36.5,16.5 25.5,27.5 25.5,41 C 25.5,54.5 36.5,65.5 50,65.5 C 54.7,65.5 59.1,64.2 62.8,62 L 38,38 C 34.9,34.9 34.9,29.9 38,26.8 C 41.1,23.7 46.1,23.7 49.2,26.8 L 77.2,54.8 C 80.8,47.9 83.5,40 83.5,31.5 C 83.5,19.6 74.4,10 62.5,10 C 60.3,10 58.2,10.4 56.2,11.1 L 50,10 Z"
+                  fill="#fff"
+                />
+              </svg>
+              <span style="color: white">Routify</span>
+            </a>
+            <p>
+              India's leading platform for train ticket booking, offering a
+              seamless and delightful travel experience.
             </p>
+          </div>
+          <div class="footer-links">
+            <div class="footer-col">
+              <h4>Company</h4>
+              <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Press</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Support</h4>
+              <ul>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Terms of Service</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Routify. All Rights Reserved.</p>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"
+              ><i class="fab fa-instagram"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <!-- ======================= Passenger Details Modal ======================= -->
+<div class="modal-overlay details-modal">
+  <div class="modal-container">
+    <div class="payment-header">
+      <h2 id="details-title">Enter Passenger Details</h2>
+      <button class="close-modal-btn">&times;</button>
+    </div>
+    <div class="payment-content">
+     <form id="passenger-details-form">
+  <div class="details-input-group">
+    <label for="full-name">Full Name</label>
+    <input type="text" id="full-name" placeholder="Enter your full name" required>
+  </div>
+
+  <div class="form-row">
+    <div class="details-input-group">
+      <label for="age">Age</label>
+      <input type="number" id="age" placeholder="e.g., 28" required>
+    </div>
+    <div class="details-input-group">
+      <label for="gender">Gender</label>
+      <select id="gender" required>
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="details-input-group">
+    <label for="mobile-number">Mobile Number</label>
+    <input type="tel" id="mobile-number" placeholder="Enter your 10-digit mobile number" required>
+  </div>
+  <div class="details-input-group">
+    <label for="email-address">Email Address</label>
+    <input type="email" id="email-address" placeholder="Enter your email address" required>
+  </div>
+
+  <button type="submit" id="submit-details-btn" class="pay-now-btn">Submit Details</button>
+</form>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= Booking Success Page ======================= -->
+<div id="booking-success-page" class="page-content" style="display: none;">
+  <div class="container">
+    <div class="success-message">
+      <i class="fas fa-check-circle"></i>
+      <h1>Booking Successful!</h1>
+      <p>Thank you for booking with Routify. Your tickets have been sent to your email and mobile number.</p>
+      <button id="back-to-home-btn">Book Another Ticket</button>
+    </div>
+  </div>
+</div>
+
     </footer>
 
     <script>
-        // 1. Mobile Menu Toggle
-        const menuBtn = document.getElementById('menuBtn');
-        const navLinks = document.getElementById('navLinks');
 
-        menuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const icon = menuBtn.querySelector('i');
-            if(navLinks.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+
+document.addEventListener("DOMContentLoaded", function () {
+  const searchBtn = document.querySelector(".search-flights");
+
+  searchBtn.addEventListener("click", async () => {
+    const fromAirport = document.getElementById("from-airport").value;
+    const toAirport = document.getElementById("to-airport").value;
+    const departureDate = document.getElementById("departure-date").value;
+    const returnDate = document.getElementById("return-date").value;
+    const fareType = document.querySelector("input[name='flight-fare']:checked")?.id;
+
+    const payload = {
+      origin: fromAirport,
+      destination: toAirport,
+      departureDate,
+      returnDate,
+      fareType
+    };
+
+    console.log("Sending Payload:", payload);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/flights/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+alert("data is searched properly")
+      // Just log response, do not display in DOM
+      console.log("API Response (hidden):", data);
+
+      // You can now use `data` internally without showing it
+      // For example, store in a variable for later use
+      // window.flightsData = data;  // optional
+    } catch (error) {
+      console.error("Error fetching flights:", error);
+      // optionally alert user
+      // alert("Failed to fetch flights. Check console for details.");
+    }
+  });
+});
+
+
+   document.querySelector('.signup-modal-overlay .login-submit-btn').addEventListener('click', async () => {
+  const email = document.getElementById('signup-email').value.trim();
+  const password = document.getElementById('signup-password').value.trim();
+
+  if (!email || !password) {
+    alert('Please enter both email and password');
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:5000/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert('Sign up successful!');
+      localStorage.setItem('token', data.token); // optional
+      // redirect or close modal
+    } else {
+      alert('Sign up failed: ' + data.message);
+    }
+  } catch (error) {
+    alert('Error: ' + error.message);
+  }
+});
+
+
+
+document.querySelector('.login-modal-overlay .login-submit-btn').addEventListener('click', async (e) => {
+    e.preventDefault(); // Stop default form behavior
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+
+  if (!email || !password) {
+    alert('Please enter both email and password');
+    return;
+  }
+
+  try {
+    // For example, try login first
+const response = await fetch('http://localhost:5000/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password }),
+});
+
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert('Login successful! Token: ' + "user login successfully");
+      // Save token to localStorage or cookie
+      localStorage.setItem('token', data.token);
+      // Redirect user or update UI
+    } else {
+      // If login failed, try signup automatically or show error
+      alert('Login failed: ' + data.message);
+    }
+  } catch (error) {
+    alert('Error: ' + error.message);
+  }
+});
+
+
+      document.addEventListener("DOMContentLoaded", () => {
+        let currentBookingDetails = {}; // Ismein hum train/flight ka naam temporary save karenge
+        const header = document.querySelector(".main-header");
+        const navItems = document.querySelectorAll(".nav-item");
+        const bookingNavItems = document.querySelectorAll(".booking-nav-item");
+        const pageContents = document.querySelectorAll(".page-content");
+        const swapBtns = document.querySelectorAll(".swap-btn");
+        const faqQuestions = document.querySelectorAll(".faq-question");
+        const loginBtn = document.querySelector(".login-btn");
+        const loginModalOverlay = document.querySelector(
+          ".login-modal-overlay"
+        );
+          const SigninBtn = document.querySelector("#signup-btn");
+        const SigninModalOverlay = document.querySelector(
+          ".signup-modal-overlay"
+        );
+        const closeModalBtns = document.querySelectorAll(".close-modal-btn");
+        const promoSlides = document.querySelectorAll(".login-promo-slide");
+        const planTripBtns = document.querySelectorAll(".plan-trip-btn");
+        const itineraryModal = document.querySelector(".itinerary-modal");
+        const itineraryContent = document.getElementById("itinerary-content");
+        const itineraryTitle = document.getElementById("itinerary-title");
+        // --- Class Dropdown Functionality ---
+        const classSelector = document.querySelector(".class-selector");
+        const classDropdownList = document.getElementById(
+          "class-dropdown-list"
+        );
+        const classValueDisplay = classSelector.querySelector(".class-value");
+        const classLabelDisplay = classSelector.querySelector(".class-label");
+
+        if (classSelector && classDropdownList) {
+          // Show/Hide the dropdown on click
+          classSelector.addEventListener("click", (event) => {
+            event.stopPropagation(); // Prevents the click from closing the menu immediately
+            classDropdownList.classList.toggle("visible");
+          });
+
+          // Handle class selection from the dropdown
+          classDropdownList.addEventListener("click", (event) => {
+            if (event.target.tagName === "A") {
+              event.preventDefault();
+              const selectedValue = event.target.dataset.value;
+              const selectedText = event.target.textContent;
+
+              // Update the display with the selected class
+              classValueDisplay.textContent = selectedValue;
+              classLabelDisplay.textContent = selectedText;
+
+              // Hide the dropdown after selection
+              classDropdownList.classList.remove("visible");
             }
+          });
+
+          // Hide dropdown if user clicks anywhere else on the page
+          window.addEventListener("click", () => {
+            if (classDropdownList.classList.contains("visible")) {
+              classDropdownList.classList.remove("visible");
+            }
+          });
+        }
+       // --- Search & Results Functionality (Trains, Flights, Buses) ---
+const searchTrainsBtn = document.querySelector("#trains-page .search-btn");
+const trainHeroSection = document.querySelector("#trains-page .hero");
+const trainResultsSection = document.getElementById("train-results-section");
+const backToSearchBtn = document.getElementById("back-to-search-btn");
+
+const searchFlightsBtn = document.querySelector("#flights-page .search-btn");
+const flightHeroSection = document.querySelector("#flights-page .hero");
+const flightResultsSection = document.getElementById("flight-results-section");
+const backToFlightSearchBtn = document.getElementById("back-to-flight-search-btn");
+
+const searchBusesBtn = document.querySelector("#buses-page .search-btn");
+const busHeroSection = document.querySelector("#buses-page .hero");
+const busResultsSection = document.getElementById("bus-results-section");
+const backToBusSearchBtn = document.getElementById("back-to-bus-search-btn");
+
+// Event Listener for Trains
+if (searchTrainsBtn) {
+    searchTrainsBtn.addEventListener("click", () => {
+        const from = document.getElementById("from-station").value || "New Delhi";
+        const to = document.getElementById("to-station").value || "Mumbai";
+        document.getElementById("results-title").textContent = `Trains from ${from} to ${to}`;
+        
+        header.classList.add("scrolled");
+        trainHeroSection.style.display = "none";
+        trainResultsSection.style.display = "block";
+    });
+}
+if (backToSearchBtn) {
+    backToSearchBtn.addEventListener("click", () => {
+        header.classList.remove("scrolled");
+        trainResultsSection.style.display = "none";
+        trainHeroSection.style.display = "flex";
+    });
+}
+
+// Event Listener for Flights
+if (searchFlightsBtn) {
+    searchFlightsBtn.addEventListener("click", () => {
+        const from = document.getElementById("from-airport").value || "Delhi (DEL)";
+        const to = document.getElementById("to-airport").value || "Goa (GOI)";
+        document.getElementById("flight-results-title").textContent = `Flights from ${from} to ${to}`;
+
+        header.classList.add("scrolled");
+        flightHeroSection.style.display = "none";
+        flightResultsSection.style.display = "block";
+    });
+}
+if (backToFlightSearchBtn) {
+    backToFlightSearchBtn.addEventListener("click", () => {
+        header.classList.remove("scrolled");
+        flightResultsSection.style.display = "none";
+        flightHeroSection.style.display = "flex";
+    });
+}
+
+// Event Listener for Buses
+if (searchBusesBtn) {
+    searchBusesBtn.addEventListener("click", () => {
+        const from = document.getElementById("from-city").value || "Mumbai";
+        const to = document.getElementById("to-city").value || "Pune";
+        document.getElementById("bus-results-title").textContent = `Buses from ${from} to ${to}`;
+
+        header.classList.add("scrolled");
+        busHeroSection.style.display = "none";
+        busResultsSection.style.display = "block";
+    });
+}
+if (backToBusSearchBtn) {
+    backToBusSearchBtn.addEventListener("click", () => {
+        header.classList.remove("scrolled");
+        busResultsSection.style.display = "none";
+        busHeroSection.style.display = "flex";
+    });
+}
+// --- Booking Flow Functionality (Corrected for All Pages) ---
+const detailsModal = document.querySelector(".details-modal");
+const passengerForm = document.getElementById("passenger-details-form");
+const bookingSuccessPage = document.getElementById("booking-success-page");
+const backToHomeBtn = document.getElementById("back-to-home-btn");
+
+// Helper function to handle "Book Now" clicks
+const handleBookNowClick = (e) => {
+    if (e.target && e.target.classList.contains('book-now-btn')) {
+        const card = e.target.closest(".train-card, .flight-card, .bus-card");
+        // Booking ki details temporary save karo
+        currentBookingDetails.name = card.querySelector("h3").textContent;
+        currentBookingDetails.fare = card.querySelector(".train-fare h3, .flight-fare h3, .bus-fare h3").textContent;
+        showModal(detailsModal);
+    }
+};
+
+// Step 1: Add click listeners to ALL results sections
+if (trainResultsSection) trainResultsSection.addEventListener("click", handleBookNowClick);
+if (flightResultsSection) flightResultsSection.addEventListener("click", handleBookNowClick);
+if (busResultsSection) busResultsSection.addEventListener("click", handleBookNowClick);
+
+
+if (passengerForm) {
+    passengerForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const passengerDetails = {
+            passengerName: document.getElementById('full-name').value,
+            age: document.getElementById('age').value,
+            gender: document.getElementById('gender').value,
+            mobile: document.getElementById('mobile-number').value,
+            email: document.getElementById('email-address').value,
+        };
+
+        const activeNav = document.querySelector(".nav-item.active");
+        const pageId = activeNav ? activeNav.dataset.page : 'trains';
+        const dateInputId = `${pageId === 'trains' ? 'travel' : pageId === 'flights' ? 'departure' : 'bus-travel'}-date`;
+        const dateInput = document.getElementById(dateInputId);
+        currentBookingDetails.departureDate = dateInput ? dateInput.value : 'N/A';
+
+        const newBooking = { ...currentBookingDetails, ...passengerDetails };
+
+        let bookings = JSON.parse(localStorage.getItem('myBookings')) || [];
+        bookings.unshift(newBooking);
+        localStorage.setItem('myBookings', JSON.stringify(bookings));
+
+        hideModal(detailsModal);
+        if(trainResultsSection) trainResultsSection.style.display = "none";
+        if(flightResultsSection) flightResultsSection.style.display = "none";
+        if(busResultsSection) busResultsSection.style.display = "none";
+        bookingSuccessPage.style.display = "flex";
+        window.scrollTo(0, 0);
+    });
+}
+// Step 3: "Go Back Home" button se active page par wapas jao
+// Step 3: "Go To Home" button se page ko refresh karo
+if (backToHomeBtn) {
+    backToHomeBtn.addEventListener("click", () => {
+        location.reload(); // Ye line page ko refresh kar degi
+    });
+}
+// --- My Bookings Page Functionality (With Cancellation) ---
+const myBookingsBtn = document.getElementById("my-bookings-btn");
+const myBookingsPage = document.getElementById("my-bookings-page");
+const bookingsListContainer = document.getElementById("bookings-list-container");
+const noBookingsMessage = document.getElementById("no-bookings-message");
+const backFromBookingsBtn = document.getElementById("back-to-main-from-bookings-btn");
+
+function renderBookings() {
+    const bookings = JSON.parse(localStorage.getItem('myBookings')) || [];
+    bookingsListContainer.innerHTML = '';
+
+    if (bookings.length === 0) {
+        noBookingsMessage.style.display = 'block';
+    } else {
+        noBookingsMessage.style.display = 'none';
+        bookings.forEach((booking, index) => {
+            let formattedDate = 'Not Available';
+            if (booking.departureDate && booking.departureDate !== 'N/A') {
+                try {
+                    const date = new Date(booking.departureDate);
+                    // Add timezone offset to prevent date from shifting
+                    const userTimezoneOffset = date.getTimezoneOffset() * 60000;
+                    const correctedDate = new Date(date.getTime() + userTimezoneOffset);
+                    formattedDate = correctedDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric'});
+                } catch (e) {
+                    console.error("Could not format date:", booking.departureDate);
+                }
+            }
+
+            const bookingCard = `
+                <div class="booking-card" data-booking-index="${index}">
+                    <button class="cancel-cross-btn">&times;</button>
+                    <h3>${booking.name}</h3>
+
+                    <div class="booking-card-body">
+                        <div class="booking-col">
+                            <p><strong>Passenger:</strong> ${booking.passengerName}</p>
+                            <p><strong>Contact:</strong> ${booking.mobile}</p>
+                            <p><strong>Email:</strong> ${booking.email}</p>
+                        </div>
+                        <div class="booking-col">
+                            <p><strong>Date:</strong> ${formattedDate}</p>
+                            <p><strong>Age:</strong> ${booking.age}</p>
+                            <p><strong>Gender:</strong> ${booking.gender}</p>
+                          
+                        </div>
+                    </div>
+
+                    <div class="booking-card-footer">
+                        <p><strong>Fare Paid:</strong> ${booking.fare}</p>
+                        <button class="cancel-ticket-btn">Cancel Ticket</button>
+                    </div>
+                </div>
+            `;
+            bookingsListContainer.innerHTML += bookingCard;
+        });
+    }
+}
+// Booking ko delete karne ka function
+function cancelBooking(bookingIndex) {
+    let bookings = JSON.parse(localStorage.getItem('myBookings')) || [];
+    bookings.splice(bookingIndex, 1); // Index par booking ko delete karo
+    localStorage.setItem('myBookings', JSON.stringify(bookings)); // Updated list save karo
+    renderBookings(); // Page ko refresh karo
+}
+
+if (myBookingsBtn) {
+    myBookingsBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        pageContents.forEach(page => page.style.display = 'none');
+        if(trainResultsSection) trainResultsSection.style.display = "none";
+        if(flightResultsSection) flightResultsSection.style.display = "none";
+        if(busResultsSection) busResultsSection.style.display = "none";
+
+        myBookingsPage.style.display = 'block';
+        header.classList.add("scrolled");
+        renderBookings();
+    });
+}
+
+if(backFromBookingsBtn) {
+    backFromBookingsBtn.addEventListener('click', () => {
+        location.reload();
+    });
+}
+
+// Cancellation buttons ke liye event listener
+if(bookingsListContainer) {
+    bookingsListContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('cancel-ticket-btn') || e.target.classList.contains('cancel-cross-btn')) {
+            const card = e.target.closest('.booking-card');
+            const bookingIndex = card.dataset.bookingIndex;
+            if (bookingIndex !== null) {
+                // Ek confirmation poochho
+                if (confirm("Are you sure you want to cancel this booking?")) {
+                    cancelBooking(bookingIndex);
+                }
+            }
+        }
+    });
+}
+
+        let currentSlide = 0;
+
+        // --- Sticky Header on Scroll ---
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 50) {
+            header.classList.add("scrolled");
+          } else {
+            header.classList.remove("scrolled");
+          }
         });
 
-        // Close menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                menuBtn.querySelector('i').classList.remove('fa-times');
-                menuBtn.querySelector('i').classList.add('fa-bars');
-            });
-        });
+        // --- Page Navigation ---
+        function switchPage(pageId) {
+          if (!pageId) return;
 
-        // 2. Typewriter Effect
-        const typeText = ["Full Stack Solutions", "Interactive Websites", "Scalable Backends"];
-        let typeIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typeSpeed = 100;
-        const deleteSpeed = 50;
-        const pauseTime = 2000;
-        const typeTarget = document.getElementById('typewriter');
-
-        function type() {
-            const currentText = typeText[typeIndex];
-            
-            if (isDeleting) {
-                typeTarget.textContent = currentText.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typeTarget.textContent = currentText.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            let delta = isDeleting ? deleteSpeed : typeSpeed;
-
-            if (!isDeleting && charIndex === currentText.length) {
-                delta = pauseTime;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                typeIndex = (typeIndex + 1) % typeText.length;
-                delta = 500;
-            }
-
-            setTimeout(type, delta);
+          navItems.forEach((nav) =>
+            nav.classList.toggle("active", nav.dataset.page === pageId)
+          );
+          bookingNavItems.forEach((nav) =>
+            nav.classList.toggle("active", nav.dataset.page === pageId)
+          );
+          pageContents.forEach((page) => {
+            page.classList.toggle("active", page.id === `${pageId}-page`);
+          });
         }
 
-        document.addEventListener('DOMContentLoaded', type);
-
-        // 3. Scroll Reveal Animation using Intersection Observer
-        const revealElements = document.querySelectorAll('.reveal');
-
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
+        navItems.forEach((item) => {
+          item.addEventListener("click", () => switchPage(item.dataset.page));
         });
 
-        revealElements.forEach(el => revealObserver.observe(el));
+        // --- Modal Controls ---
+        function showModal(modalOverlay) {
+          modalOverlay.classList.add("visible");
+        }
 
-        // 4. Active Navigation Link on Scroll
-        const sections = document.querySelectorAll('section');
-        const navItems = document.querySelectorAll('.nav-links a');
+        function hideModal(modalOverlay) {
+          modalOverlay.classList.remove("visible");
+        }
 
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
-                    current = section.getAttribute('id');
-                }
-            });
+        loginBtn.addEventListener("click", () => showModal(loginModalOverlay));
+        SigninBtn.addEventListener("click", () => showModal(SigninModalOverlay));
 
-            navItems.forEach(li => {
-                li.classList.remove('active');
-                if (li.getAttribute('href').includes(current)) {
-                    li.classList.add('active');
-                }
-            });
+
+        closeModalBtns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            hideModal(loginModalOverlay);
+            hideModal(SigninModalOverlay);
+            hideModal(itineraryModal);
+            hideModal(detailsModal);
+          });
         });
 
-        // 5. Contact Form Handler (Mock)
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Here you would implement EmailJS or backend logic
-            const btn = this.querySelector('button');
-            const originalText = btn.textContent;
-            
-            btn.textContent = 'Sending...';
-            btn.style.opacity = '0.7';
-            
-            setTimeout(() => {
-                alert('Message Sent! (This is a demo)');
-                this.reset();
-                btn.textContent = originalText;
-                btn.style.opacity = '1';
-            }, 1500);
+        loginModalOverlay.addEventListener("click", (e) => {
+          if (e.target === loginModalOverlay) {
+            hideModal(loginModalOverlay);
+          }
         });
+        itineraryModal.addEventListener("click", (e) => {
+          if (e.target === itineraryModal) {
+            hideModal(itineraryModal);
+          }
+        });
+
+        // --- Login Promo Slider ---
+        function switchPromoSlide() {
+          promoSlides[currentSlide].classList.remove("active");
+          currentSlide = (currentSlide + 1) % promoSlides.length;
+          promoSlides[currentSlide].classList.add("active");
+        }
+        setInterval(switchPromoSlide, 3000);
+
+        // --- Gemini API Itinerary Planner ---
+        async function generateItinerary(from, to) {
+          itineraryTitle.textContent = `Your Trip from ${from} to ${to}`;
+          itineraryContent.innerHTML = '<div class="spinner"></div>';
+          showModal(itineraryModal);
+
+          const systemPrompt =
+            "You are a helpful travel assistant. Generate a concise and exciting 3-day travel itinerary. Suggest popular attractions, local food to try, and travel tips. Format your response using simple HTML tags like `<h3>` for day titles, `<h4>` for categories like 'Attractions' or 'Food', and `<ul>` with `<li>` for lists. Do not include `<html>` or `<body>` tags.";
+          const userQuery = `Create a 3-day travel itinerary for a trip from ${from} to ${to}.`;
+          const apiKey = ""; // API key is handled by the environment
+          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+          const payload = {
+            contents: [{ parts: [{ text: userQuery }] }],
+            systemInstruction: {
+              parts: [{ text: systemPrompt }],
+            },
+          };
+
+          try {
+            const response = await fetch(apiUrl, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (
+              result.candidates &&
+              result.candidates[0] &&
+              result.candidates[0].content
+            ) {
+              const text = result.candidates[0].content.parts[0].text;
+              itineraryContent.innerHTML = text;
+            } else {
+              itineraryContent.innerHTML =
+                "<p>Sorry, I couldn't generate an itinerary at this time. Please try again later.</p>";
+            }
+          } catch (error) {
+            console.error("Error fetching itinerary:", error);
+            itineraryContent.innerHTML =
+              "<p>Sorry, an error occurred while planning your trip. Please check your connection and try again.</p>";
+          }
+        }
+
+        planTripBtns.forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const parentBookingBox = e.target.closest(".booking-box");
+            let from = "";
+            let to = "";
+
+            if (parentBookingBox.querySelector(".from-group input")) {
+              from =
+                parentBookingBox.querySelector(".from-group input").value ||
+                parentBookingBox.querySelector(".from-group input").placeholder;
+            }
+            if (parentBookingBox.querySelector(".to-group input")) {
+              to =
+                parentBookingBox.querySelector(".to-group input").value ||
+                parentBookingBox.querySelector(".to-group input").placeholder;
+            }
+
+            // Special case for hotels
+            if (!from && parentBookingBox.querySelector("#hotel-destination")) {
+              to =
+                parentBookingBox.querySelector("#hotel-destination").value ||
+                parentBookingBox.querySelector("#hotel-destination")
+                  .placeholder;
+              from = "your current location";
+            }
+
+            if (from && to) {
+              generateItinerary(from, to);
+            } else {
+              alert("Please enter a destination to plan your trip.");
+            }
+          });
+        });
+
+        // --- Swap station/city fields ---
+        swapBtns.forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const bookingBox = e.currentTarget.closest(".booking-box");
+            if (bookingBox) {
+              const fromInput = bookingBox.querySelector(".from-group input");
+              const toInput = bookingBox.querySelector(".to-group input");
+              if (fromInput && toInput) {
+                [fromInput.value, toInput.value] = [
+                  toInput.value,
+                  fromInput.value,
+                ];
+              }
+            }
+          });
+        });
+
+        // --- FAQ Accordion ---
+  faqQuestions.forEach((question) => {
+    const item = question.closest(".faq-item");
+    const answer = item.querySelector(".faq-answer");
+
+    question.addEventListener("click", () => {
+      const isActive = item.classList.contains("active");
+      // This now toggles the current item without affecting others
+      item.classList.toggle("active", !isActive);
+      answer.style.maxHeight = !isActive
+        ? answer.scrollHeight + "px"
+        : null;
+    });
+    question.click();
+  });
+
+        // --- Reveal on Scroll Animation ---
+        const revealElements = document.querySelectorAll(".reveal");
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        revealElements.forEach((elem) => observer.observe(elem));
+      });
+      
     </script>
-</body>
+  </body>
 </html>
