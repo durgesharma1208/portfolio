@@ -2037,11 +2037,25 @@ body:hover .cursor-follower {
 
 .project-image {
     position: relative;
-    height: 200px;
+    height: 220px;
     background: var(--bg-tertiary);
     overflow: hidden;
 }
 
+/* Project Image Styling */
+.project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease, filter 0.3s ease;
+}
+
+.project-card:hover .project-img {
+    transform: scale(1.1);
+    filter: brightness(0.7);
+}
+
+/* Keep placeholder styles for fallback */
 .project-placeholder {
     position: absolute;
     top: 50%;
@@ -2056,7 +2070,6 @@ body:hover .cursor-follower {
     color: var(--primary-color);
     transform: translate(-50%, -50%) scale(1.2);
 }
-
 .project-overlay {
     position: absolute;
     top: 0;
