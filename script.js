@@ -1035,73 +1035,69 @@ class PerformanceOptimization {
 // ============================================
 // RESUME DOWNLOAD
 // ============================================
+// ============================================
+// RESUME DOWNLOAD
+// ============================================
 class ResumeDownload {
     constructor() {
         this.buttons = Utils.$$('#resumeBtn, #downloadCV');
-        
-        // ========== CHANGE THIS ==========
-        this.resumeFileName = 'Durgesh_Sharma_Resume.pdf';  // Your resume file name
-        // =================================
-        
         this.init();
     }
 
     init() {
         this.buttons.forEach(btn => {
-            Utils.on(btn, 'click', (e) => this.handleDownload(e));
+            Utils.on(btn, 'click', (e) => {
+                e.preventDefault();
+                
+                // ============================================
+                // CHANGE THE FILE NAME BELOW TO YOUR RESUME
+                // ============================================
+                const resumeFileName = 'Durgesh_Sharma_Resume.pdf';
+                // ============================================
+                
+                // Create and trigger download
+                const link = document.createElement('a');
+                link.href = resumeFileName;
+                link.download = resumeFileName;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Show success message
+                const toastContainer = Utils.$('#toast-container');
+                if (toastContainer) {
+                    const toast = document.createElement('div');
+                    toast.className = 'toast success';
+                    toast.innerHTML = `
+                        <div class="toast-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="toast-content">
+                            <span class="toast-title">Download Started!</span>
+                            <span class="toast-message">Your resume is being downloaded.</span>
+                        </div>
+                        <button class="toast-close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+
+                    toastContainer.appendChild(toast);
+
+                    const closeBtn = toast.querySelector('.toast-close');
+                    Utils.on(closeBtn, 'click', () => {
+                        toast.classList.add('hiding');
+                        setTimeout(() => toast.remove(), 300);
+                    });
+
+                    setTimeout(() => {
+                        if (toast.parentNode) {
+                            toast.classList.add('hiding');
+                            setTimeout(() => toast.remove(), 300);
+                        }
+                    }, 4000);
+                }
+            });
         });
-    }
-
-    handleDownload(e) {
-        e.preventDefault();
-        
-        // Create download link
-        const link = document.createElement('a');
-        link.href = this.resumeFileName;
-        link.download = this.resumeFileName;
-        
-        // Trigger download
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        // Show success toast
-        this.showToast('success', 'Download Started!', 'Your resume is being downloaded.');
-    }
-    
-    showToast(type, title, message) {
-        const toastContainer = Utils.$('#toast-container');
-        if (!toastContainer) return;
-
-        const toast = document.createElement('div');
-        toast.className = `toast ${type}`;
-        toast.innerHTML = `
-            <div class="toast-icon">
-                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
-            </div>
-            <div class="toast-content">
-                <span class="toast-title">${title}</span>
-                <span class="toast-message">${message}</span>
-            </div>
-            <button class="toast-close">
-                <i class="fas fa-times"></i>
-            </button>
-        `;
-
-        toastContainer.appendChild(toast);
-
-        const closeBtn = toast.querySelector('.toast-close');
-        Utils.on(closeBtn, 'click', () => {
-            toast.classList.add('hiding');
-            setTimeout(() => toast.remove(), 300);
-        });
-
-        setTimeout(() => {
-            if (toast.parentNode) {
-                toast.classList.add('hiding');
-                setTimeout(() => toast.remove(), 300);
-            }
-        }, 5000);
     }
 }
 
