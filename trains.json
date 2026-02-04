@@ -1,0 +1,250 @@
+[
+  {
+    "from": "New Delhi",
+    "to": "Mumbai",
+    "trains": [
+      {
+        "name": "Capital Rajdhanissss",
+        "number": "12952",
+        "departureTime": "17:00",
+        "arrivalTime": "08:50",
+        "duration": "15h 50m",
+        "stops": "0 Stops",
+        "fare": 2500,
+        "rating": 4.8
+      },
+      {
+        "name": "August Kranti Express",
+        "number": "12954",
+        "departureTime": "17:15",
+        "arrivalTime": "11:00",
+        "duration": "17h 45m",
+        "stops": "12 Stops",
+        "fare": 2200,
+        "rating": 4.7
+      },
+      {
+        "name": "Western Duronto",
+        "number": "22210",
+        "departureTime": "23:25",
+        "arrivalTime": "15:35",
+        "duration": "16h 10m",
+        "stops": "4 Stops",
+        "fare": 1800,
+        "rating": 4.5
+      }
+    ]
+  },
+  {
+    "from": "Mumbai",
+    "to": "Pune",
+    "trains": [
+      {
+        "name": "Deccan Queen",
+        "number": "12123",
+        "departureTime": "17:10",
+        "arrivalTime": "20:25",
+        "duration": "3h 15m",
+        "stops": "4 Stops",
+        "fare": 125,
+        "rating": 4.9
+      },
+      {
+        "name": "Indrayani SF Express",
+        "number": "22105",
+        "departureTime": "05:40",
+        "arrivalTime": "09:00",
+        "duration": "3h 20m",
+        "stops": "6 Stops",
+        "fare": 145,
+        "rating": 4.6
+      },
+      {
+        "name": "Pragati Express",
+        "number": "12125",
+        "departureTime": "16:25",
+        "arrivalTime": "19:50",
+        "duration": "3h 25m",
+        "stops": "7 Stops",
+        "fare": 130,
+        "rating": 4.4
+      }
+    ]
+  },
+  {
+    "from": "New Delhi",
+    "to": "Kolkata",
+    "trains": [
+      {
+        "name": "Howrah Rajdhani",
+        "number": "12302",
+        "departureTime": "16:50",
+        "arrivalTime": "09:55",
+        "duration": "17h 05m",
+        "stops": "8 Stops",
+        "fare": 2800,
+        "rating": 4.9
+      },
+      {
+        "name": "Sealdah Duronto",
+        "number": "12260",
+        "departureTime": "19:40",
+        "arrivalTime": "12:35",
+        "duration": "16h 55m",
+        "stops": "3 Stops",
+        "fare": 2400,
+        "rating": 4.7
+      },
+      {
+        "name": "Kalka Mail",
+        "number": "12312",
+        "departureTime": "07:00",
+        "arrivalTime": "08:05",
+        "duration": "25h 05m",
+        "stops": "38 Stops",
+        "fare": 850,
+        "rating": 4.2
+      }
+    ]
+  },
+  {
+    "from": "New Delhi",
+    "to": "Jaipur",
+    "trains": [
+      {
+        "name": "Ajmer Shatabdi",
+        "number": "12015",
+        "departureTime": "06:05",
+        "arrivalTime": "10:30",
+        "duration": "4h 25m",
+        "stops": "4 Stops",
+        "fare": 800,
+        "rating": 4.8
+      },
+      {
+        "name": "Double Decker",
+        "number": "12986",
+        "departureTime": "17:50",
+        "arrivalTime": "22:00",
+        "duration": "4h 10m",
+        "stops": "3 Stops",
+        "fare": 550,
+        "rating": 4.5
+      }
+    ]
+  },
+  {
+    "from": "Bengaluru",
+    "to": "Chennai",
+    "trains": [
+      {
+        "name": "Shatabdi Express",
+        "number": "12028",
+        "departureTime": "06:00",
+        "arrivalTime": "11:00",
+        "duration": "5h 00m",
+        "stops": "2 Stops",
+        "fare": 950,
+        "rating": 4.9
+      },
+      {
+        "name": "Lalbagh Express",
+        "number": "12608",
+        "departureTime": "06:20",
+        "arrivalTime": "12:15",
+        "duration": "5h 55m",
+        "stops": "10 Stops",
+        "fare": 200,
+        "rating": 4.6
+      },
+      {
+        "name": "Brindavan Express",
+        "number": "12640",
+        "departureTime": "15:10",
+        "arrivalTime": "21:10",
+        "duration": "6h 00m",
+        "stops": "12 Stops",
+        "fare": 190,
+        "rating": 4.5
+      }
+    ]
+  },
+  {
+    "from": "Mumbai",
+    "to": "Goa",
+    "trains": [
+      {
+        "name": "Tejas Express",
+        "number": "22119",
+        "departureTime": "05:50",
+        "arrivalTime": "14:00",
+        "duration": "8h 10m",
+        "stops": "6 Stops",
+        "fare": 1600,
+        "rating": 4.9
+      },
+      {
+        "name": "Konkan Kanya",
+        "number": "10111",
+        "departureTime": "23:05",
+        "arrivalTime": "10:45",
+        "duration": "11h 40m",
+        "stops": "18 Stops",
+        "fare": 550,
+        "rating": 4.6
+      }
+    ]
+  },
+  {
+    "from": "New Delhi",
+    "to": "Agra",
+    "trains": [
+      {
+        "name": "Gatimaan Express",
+        "number": "12050",
+        "departureTime": "08:10",
+        "arrivalTime": "09:50",
+        "duration": "1h 40m",
+        "stops": "0 Stops",
+        "fare": 750,
+        "rating": 5.0
+      },
+      {
+        "name": "Taj Express",
+        "number": "12280",
+        "departureTime": "06:45",
+        "arrivalTime": "09:40",
+        "duration": "2h 55m",
+        "stops": "2 Stops",
+        "fare": 150,
+        "rating": 4.4
+      }
+    ]
+  },
+  {
+    "from": "Hyderabad",
+    "to": "Bengaluru",
+    "trains": [
+        {
+            "name": "Kacheguda SF",
+            "number": "12785",
+            "departureTime": "19:05",
+            "arrivalTime": "06:25",
+            "duration": "11h 20m",
+            "stops": "13 Stops",
+            "fare": 580,
+            "rating": 4.7
+        },
+        {
+            "name": "RJT Express",
+            "number": "17019",
+            "departureTime": "15:30",
+            "arrivalTime": "07:40",
+            "duration": "16h 10m",
+            "stops": "20 Stops",
+            "fare": 450,
+            "rating": 4.1
+        }
+    ]
+  }
+]
