@@ -764,6 +764,7 @@ body:hover .cursor-follower {
    ============================================ */
 .hero {
     min-height: 100vh;
+    min-height: 100dvh; /* Better for mobile */
     display: flex;
     align-items: center;
     padding-top: var(--navbar-height);
@@ -773,11 +774,12 @@ body:hover .cursor-follower {
 .hero-container {
     max-width: var(--container-max);
     margin: 0 auto;
-    padding: var(--space-3xl) var(--container-padding);
+    padding: 1rem var(--container-padding); /* Minimal top padding */
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-4xl);
+    gap: 2rem; /* Reduced gap */
     align-items: center;
+    margin-top: -2rem; /* Pull content up slightly */
 }
 
 /* Hero Content */
@@ -1245,7 +1247,8 @@ body:hover .cursor-follower {
     .hero-container {
         grid-template-columns: 1fr;
         text-align: center;
-        gap: var(--space-3xl);
+        gap: 1.5rem;  /* Reduced gap for tablet */
+        padding-top: 1rem;
     }
     
     .hero-content {
@@ -1275,8 +1278,8 @@ body:hover .cursor-follower {
     }
     
     .hero-image-container {
-        width: 300px;
-        height: 300px;
+        width: 280px;
+        height: 280px;
     }
     
     .code-card {
@@ -1287,6 +1290,22 @@ body:hover .cursor-follower {
         width: 40px;
         height: 40px;
         font-size: var(--fs-base);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding-top: 60px;  /* Smaller navbar on mobile */
+    }
+    
+    .hero-container {
+        gap: 1rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .hero-image-container {
+        width: 220px;
+        height: 220px;
     }
 }
 
@@ -1302,11 +1321,14 @@ body:hover .cursor-follower {
     }
     
     .hero-image-container {
-        width: 250px;
-        height: 250px;
+        width: 200px;
+        height: 200px;
+    }
+    
+    .hero-container {
+        padding: 0.5rem;
     }
 }
-
 /* ============================================
    BUTTONS
    ============================================ */
@@ -3342,3 +3364,4 @@ img[src="durgeshimage"]::after {
 /* ============================================
    END OF STYLESHEET
    ============================================ */
+
