@@ -102,9 +102,9 @@ Every push to the **main branch** automatically updates the live site.
 
 If you want to collaborate or connect:
 
-* GitHub: [https://github.com/yourusername](https://github.com/yourusername)
-* LinkedIn: [https://linkedin.com/in/yourusername](https://linkedin.com/in/yourusername)
-* Email: [your@email.com](mailto:your@email.com)
+* GitHub: https://github.com/durgesharma1208
+* LinkedIn: https://www.linkedin.com/in/durgesh-sharma-64260b33b
+* Email: durgesharma1208@gmail.com
 
 ---
 
